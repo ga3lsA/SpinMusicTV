@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /pages/manuel-gordes.html
-Disallow: /pages/manuel-marquixanes.html
-
-Sitemap: https://luberon-et-pyrenees.fr/sitemap.xml
