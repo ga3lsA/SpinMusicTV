@@ -137,6 +137,9 @@ table.smtv td.dim{color:var(--muted)}
 .tev-cover-wrap{position:relative;width:112px;height:112px;flex-shrink:0}
 .tev-cover{width:112px;height:112px;border-radius:14px;object-fit:cover;border:1.5px solid var(--border);position:absolute;top:0;left:0}
 .tev-cover-placeholder{display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--muted);font-size:34px}
+.tev-fpa-link{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 22px;background:var(--cyan-light);border-bottom:1.5px solid var(--cyan-mid);font-size:12.5px}
+.tev-fpa-link a{color:#007B87;font-weight:800;text-decoration:none}
+.tev-fpa-link a:hover{text-decoration:underline}
 .tev-body{padding:20px 22px}
 .tev-section-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
 .tev-section-label:first-child{margin-top:0}
@@ -457,6 +460,7 @@ const SHAZAM_DATE_BUILTIN = 'données de référence intégrées';
 const SHAZAM_FR_BUILTIN = {"1":{"a":"HUGEL & SOLTO (FR)","t":"Jamaican (Bam Bam)"},"2":{"a":"Naïka","t":"ONE TRACK MIND"},"3":{"a":"Shakira & Burna Boy","t":"Dai Dai"},"4":{"a":"Mauvais Djo","t":"Pilé (Gospel)"},"5":{"a":"Temper City","t":"Self Aware"},"6":{"a":"Oria","t":"Soirée mondaine"},"7":{"a":"The Alan Parsons Project","t":"Sirius"},"8":{"a":"Mauvais Djo","t":"Maladie"},"9":{"a":"DJ Goja","t":"Mi Chico"},"10":{"a":"La Famax","t":"T'es en love"},"11":{"a":"HUGEL, Imael Angel & Ultra Naté","t":"Movin' To The Sun"},"12":{"a":"ANOTR","t":"Talk To You (feat. 54 Ultra)"},"13":{"a":"Bilouki","t":"Full"},"14":{"a":"Jennifer Lopez & David Guetta","t":"Save Me Tonight"},"15":{"a":"Aya Nakamura","t":"Doudou"},"16":{"a":"Tame Impala","t":"Dracula"},"17":{"a":"Slayyyter","t":"DANCE..."},"18":{"a":"Bad Bunny","t":"NUEVAYoL"},"19":{"a":"TK","t":"Scarface 2.0"},"20":{"a":"TRIANGLE DES BERMUDES","t":"Mopao aye"},"21":{"a":"KITSCHKRIEG","t":"Gut Genug"},"22":{"a":"Aya Nakamura & La Rvfleuze","t":"Sexy Nana"},"23":{"a":"Djaksparo","t":"Pangor"},"24":{"a":"Manon Lisa","t":"Le Petit Pêcheur"},"25":{"a":"Tame Impala & JENNIE","t":"Dracula (JENNIE Remix)"},"26":{"a":"Ofenbach & Starsailor","t":"Four To The Floor"},"27":{"a":"Junior Bvndo","t":"Salut mec"},"28":{"a":"Leto","t":"Pineapple"},"29":{"a":"Alonzo","t":"TOUT VA BIEN"},"30":{"a":"The Second Voice","t":"LET ME BE"},"31":{"a":"Ankara Echoes","t":"Beni Al"},"32":{"a":"Alex Warren","t":"FEVER DREAM"},"33":{"a":"Paqueta","t":"Besoin d'air"},"34":{"a":"Ariana Grande","t":"hate that i made you love me"},"35":{"a":"Teddy Swims","t":"Mr. Know It All"},"36":{"a":"Leto","t":"Chérie coco"},"37":{"a":"Gambi","t":"RENÉ CAOVILLA"},"38":{"a":"Joé Dwèt Filé","t":"Rihanna"},"39":{"a":"Sound Of Legend","t":"San Francisco"},"40":{"a":"Tiakola","t":"Mélo Décalé"},"41":{"a":"Kaaris","t":"Huracan"},"42":{"a":"GDA","t":"tomato skin"},"43":{"a":"Mauvais Djo","t":"Pilé"},"44":{"a":"Angèle & Justice","t":"What You Want"},"45":{"a":"Paqueta","t":"Whatsapp"},"46":{"a":"El De Las R's","t":"Beretta"},"47":{"a":"Ravyn Lenae","t":"Love Me Not"},"48":{"a":"TRIANGLE DES BERMUDES","t":"À l'aise"},"49":{"a":"Zaho","t":"Comme Caroline"},"50":{"a":"Zola, Kalash & PRINC€","t":"NETFLIX CHILL"},"51":{"a":"Jul","t":"Parfum quartier"},"52":{"a":"Bebe Rexha & Faithless","t":"New Religion"},"53":{"a":"Moha Prod","t":"balaclava"},"54":{"a":"Bello&Dallas","t":"Séminaire"},"55":{"a":"Alonzo & RnBoi","t":"18 Carats"},"56":{"a":"disiz & Theodora","t":"melodrama"},"57":{"a":"TRIANGLE DES BERMUDES","t":"Balek"},"58":{"a":"Oliver Tree & Robin Schulz","t":"Miss You"},"59":{"a":"DJ.ILHAM","t":"DIGIDI DIGIDI"},"60":{"a":"Blue Boy","t":"Remember Me"},"61":{"a":"kulturr","t":"méli-mélo"},"62":{"a":"Farruko, Greeicy & Steve Aoki","t":"YAPAQUE"},"63":{"a":"Tayc","t":"GIRLFRIEND"},"64":{"a":"La Mano 1.9, Gazo & La Rvfleuze","t":"ATL"},"65":{"a":"Julien Lieb","t":"Dis-moi où"},"66":{"a":"Jeck & Carla","t":"La recette"},"67":{"a":"Fetty Wap","t":"Trap Queen"},"68":{"a":"Avie & Delil","t":"LUNA&MONICA"},"69":{"a":"Still Fresh","t":"NO EX NO STRESS"},"70":{"a":"Plain White T's","t":"Hey There Delilah"},"71":{"a":"Justin Bieber","t":"Beauty and a Beat"},"72":{"a":"Bruno Mars","t":"I Just Might"},"73":{"a":"Jérémy Frerot","t":"Frerot"},"74":{"a":"Q.E Favelas","t":"Negro difficile"},"75":{"a":"Jennifer Lopez","t":"On the Floor"},"76":{"a":"ridgeclub","t":"do i clench my fists?"},"77":{"a":"Cookie Dingler","t":"Femme libérée"},"78":{"a":"Jungeli & EMMA","t":"Juste un peu"},"79":{"a":"RAYE","t":"WHERE IS MY HUSBAND!"},"80":{"a":"Mensa","t":"Sensa"},"81":{"a":"Shakira","t":"Waka Waka"},"82":{"a":"Max Richter","t":"Four Seasons: Spring 1"},"83":{"a":"Willylancien","t":"magique"},"84":{"a":"Bello&Dallas","t":"Arena de Cuba"},"85":{"a":"DJ 2EFFECTS","t":"Party Waves III"},"86":{"a":"Jul","t":"Je suis love"},"87":{"a":"PLK","t":"Pocahontas"},"88":{"a":"RnBoi","t":"ELLE VOULAIT"},"89":{"a":"Future & Tyla","t":"Game Time"},"90":{"a":"Yapi & SOUNDPLUG","t":"POR TI"},"91":{"a":"Adele","t":"Lovesong"},"92":{"a":"The Chemical Brothers","t":"Go"},"93":{"a":"Meryl & Lejuh","t":"Boss"},"94":{"a":"Dave & Tems","t":"Raindance"},"95":{"a":"LONOWN & riserayss","t":"worry (Instrumental Slowed)"},"96":{"a":"Bigflo & Oli","t":"Picasso"},"97":{"a":"Jean Kluger","t":"A.I.E A M'WANA"},"98":{"a":"DopeNation","t":"Kakalika"},"99":{"a":"Burak Yeter","t":"Tuesday"},"100":{"a":"Sean Paul","t":"Give It Up to Me"}};
 
 let SHAZAM_APPS_SCRIPT_PROXY_URL = localStorage.getItem('smtv_shazam_proxy_url') || '';
+let FPA_BASE_URL = (localStorage.getItem('smtv_fpa_base_url') || '').trim();
 let shazamData = null, shazamLoaded = false;
 let _shazamCbId=0;
 function fetchShazamViaAppsScript(country, timeoutMs=8000){
@@ -669,6 +673,15 @@ function renderSourcesPanel(){
         <button class="btn-ghost" onclick="loadShazamFrance()">Tester / Charger</button>
       </div>
       <div class="hint">Réutilisez l'URL du proxy Shazam déjà déployé pour FPA si vous en avez un. Champ vide = données de secours intégrées.</div>
+    </div>
+    <div class="panel">
+      <div class="pl">🔗 URL de FPA (GitHub Pages) — pour ouvrir la fiche complète d'un titre dans FPA</div>
+      <div class="row">
+        <input type="text" id="fpaUrlInput" value="${escHtml(FPA_BASE_URL)}"
+          placeholder="https://votre-utilisateur.github.io/fpa/index.html"
+          oninput="FPA_BASE_URL=this.value;localStorage.setItem('smtv_fpa_base_url',this.value)">
+      </div>
+      <div class="hint">Une fois configurée, chaque fiche « Full Song Metrics » propose un lien « Voir la fiche complète dans FPA ↗ » qui ouvre FPA dans un nouvel onglet directement sur ce titre.</div>
     </div>`;
 }
 
@@ -1275,6 +1288,16 @@ function applyCoverArt(url, token){
   }
 }
 
+function renderFpaLink(artist, title){
+  const el = document.getElementById('tevFpaLink');
+  if(!FPA_BASE_URL){
+    el.innerHTML = `<div class="tev-fpa-link" style="background:var(--bg);border-color:var(--border)"><span style="color:var(--text2)">🔗 Configurez l'URL de FPA dans ⚙️ Sources pour lier directement à sa fiche complète.</span></div>`;
+    return;
+  }
+  const sep = FPA_BASE_URL.includes('?') ? '&' : '?';
+  const url = FPA_BASE_URL + sep + 'openArtist=' + encodeURIComponent(artist) + '&openTitle=' + encodeURIComponent(title);
+  el.innerHTML = `<div class="tev-fpa-link"><span>Fiche enrichie disponible dans FPA (Fit Score, Call Out, Comité d'Écoute…)</span><a href="${escHtml(url)}" target="_blank" rel="noopener">Voir la fiche complète dans FPA ↗</a></div>`;
+}
 async function openTitleEvolutionModal(el){
   const artist = el.getAttribute('data-artist') || '';
   const title  = el.getAttribute('data-title') || '';
@@ -1285,6 +1308,7 @@ async function openTitleEvolutionModal(el){
   document.getElementById('modalTitleEvolution').style.display = 'flex';
   document.body.style.overflow = 'hidden';
   loadCoverArt(artist, title);
+  renderFpaLink(artist, title);
 
   const s = await getTitleHistorySeries(artist, title);
   const sections = [];
@@ -1597,6 +1621,7 @@ if(/^https:\/\//i.test(SHAZAM_APPS_SCRIPT_PROXY_URL||'')){
       </div>
       <button class="tev-close" onclick="closeTitleEvolutionModal()">✕</button>
     </div>
+    <div id="tevFpaLink"></div>
     <div class="tev-body" id="tevBody"></div>
   </div>
 </div>
