@@ -102,6 +102,10 @@ table.smtv td.dim{color:var(--muted)}
 .hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:8px;border:1px solid var(--border);margin-bottom:6px;font-size:12px}
 .hist-item .label{font-weight:700;color:var(--navy)}
 .legend{display:flex;gap:14px;align-items:center;font-size:11px;color:var(--text2);flex-wrap:wrap}
+.week-banner{display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--cyan-light) 0%,#fff 100%);border:1.5px solid var(--cyan-mid);border-radius:12px;padding:12px 18px;margin-bottom:16px}
+.week-banner .wb-icon{font-size:22px;flex-shrink:0}
+.week-banner .wb-text{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--navy);letter-spacing:.01em}
+.week-banner .wb-text .wb-num{color:#007B87}
 .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 .empty-state{padding:60px 20px;text-align:center;color:var(--muted);font-size:13px}
 .excl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
@@ -256,6 +260,7 @@ table.smtv td.dim{color:var(--muted)}
   </div>
 
   <div class="card" id="tableCard">
+    <div id="weekBanner" style="display:none"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
       <div class="section-label" style="margin-bottom:0">Classement général des titres diffusés (TV)</div>
       <div style="display:flex;gap:10px;align-items:center">
@@ -273,6 +278,7 @@ table.smtv td.dim{color:var(--muted)}
   </div>
 
   <div class="card" id="pageRadio" style="display:none">
+    <div id="weekBannerRadio" style="display:none"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
       <div class="section-label" style="margin-bottom:0">Classements Radios — toutes les stations suivies</div>
       <div style="display:flex;gap:10px;align-items:center">
@@ -290,6 +296,7 @@ table.smtv td.dim{color:var(--muted)}
   </div>
 
   <div class="card" id="pageExcl" style="display:none">
+    <div id="weekBannerExcl" style="display:none"></div>
     <div class="section-label">Exclusivités — titres diffusés sur une seule chaîne</div>
     <div style="font-size:12px;color:var(--text2);margin-bottom:14px;max-width:760px">
       Pour chaque chaîne du fichier TV importé, la liste des titres diffusés <strong>uniquement sur cette chaîne</strong> cette semaine (aucun passage détecté ailleurs) — utile pour repérer les partis pris de programmation propres à chaque antenne.
@@ -298,6 +305,7 @@ table.smtv td.dim{color:var(--muted)}
   </div>
 
   <div class="card" id="pageYoutube" style="display:none">
+    <div id="weekBannerYt" style="display:none"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
       <div class="section-label" style="margin-bottom:0;display:flex;align-items:center;gap:8px"><img src="data:image/png;base64,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" alt="YouTube" style="height:18px;vertical-align:middle"> Classement YouTube France (kworb.net)</div>
       <button class="btn-ghost" onclick="loadYoutubeFrance()">🔄 Rafraîchir</button>
@@ -739,9 +747,29 @@ function handleImport(file, kind){
   };
   reader.readAsArrayBuffer(file);
 }
+function formatWeekBanner(period){
+  if(!period) return null;
+  const wm = period.match(/Sem\.?\s*(\d{1,2})/i);
+  const dm = period.match(/Du\s+(.+?)\s+au\s+(.+)$/i);
+  if(wm && dm) return {num: wm[1], range: dm[1] + ' au ' + dm[2]};
+  if(wm) return {num: wm[1], range: null};
+  return {num: null, range: period};
+}
+function renderWeekBanner(elId, period){
+  const banner = document.getElementById(elId);
+  if(!banner) return;
+  const info = formatWeekBanner(period);
+  if(!info){ banner.style.display='none'; return; }
+  const numHtml = info.num ? `Semaine <span class="wb-num">${escHtml(info.num)}</span>` : '';
+  const rangeHtml = info.range ? (info.num ? ' — du ' + escHtml(info.range) : escHtml(info.range)) : '';
+  banner.className = 'week-banner';
+  banner.innerHTML = `<span class="wb-icon">🗓️</span><span class="wb-text">${numHtml}${rangeHtml}</span>`;
+  banner.style.display = 'flex';
+}
 function updatePeriodBadge(period){
   const b=document.getElementById('periodBadge');
   if(period){ b.textContent='🗓️ '+period; b.style.display='inline-block'; }
+  renderWeekBanner('weekBanner', period);
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -1608,6 +1636,7 @@ function radioSortArrow(key){
   return radioSortState.dir==='desc' ? ' ▼' : ' ▲';
 }
 function renderRadioTable(){
+  renderWeekBanner('weekBannerRadio', (radioParsed && radioParsed.period) || (tvParsed && tvParsed.period));
   const el = document.getElementById('radioTable');
   if(!radioParsed){
     el.innerHTML = `<tbody><tr><td class="empty-state">Aucun fichier radio chargé pour l'instant.<br><button class="btn-primary" style="margin-top:12px" onclick="toggleImportPanel()">📂 Importer le fichier radio de la semaine</button></td></tr></tbody>`;
@@ -1710,6 +1739,7 @@ function toggleExclMore(id, el){
 }
 function renderExclusivePage(){
   __exclCardIdx = 0;
+  renderWeekBanner('weekBannerExcl', tvParsed && tvParsed.period);
   const grid = document.getElementById('exclGrid');
   if(!tvParsed){
     grid.innerHTML = `<div class="empty-state">Importez le fichier « Classement Général TV » pour calculer les exclusivités.<br><button class="btn-primary" style="margin-top:12px" onclick="toggleImportPanel()">📂 Importer les fichiers de la semaine</button></div>`;
@@ -1796,6 +1826,7 @@ function renderExclusivePage(){
 // PAGE YOUTUBE FRANCE — classement complet (kworb.net)
 // ═══════════════════════════════════════════════════════════════════════
 function renderYoutubePage(){
+  renderWeekBanner('weekBannerYt', tvParsed && tvParsed.period);
   const el = document.getElementById('youtubePageBody');
   if(!youtubeFrLoaded){
     el.innerHTML = `<div class="empty-state">Classement YouTube France pas encore chargé.<br><button class="btn-primary" style="margin-top:12px" onclick="loadYoutubeFrance()">${logoImg(LOGO_YOUTUBE,'YouTube',14)} Charger le classement YouTube France</button></div>`;
