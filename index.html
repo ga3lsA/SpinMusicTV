@@ -144,6 +144,7 @@ table.smtv td.dim{color:var(--muted)}
 .tev-nav-counter{font-size:10.5px;font-weight:700;color:var(--muted);min-width:44px;text-align:center;white-space:nowrap}
 .tev-share-btn{display:flex;align-items:center;gap:6px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:0 12px;height:32px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .15s}
 .tev-share-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.tev-share-btn.active{background:var(--cyan-light);border-color:var(--cyan-mid);color:#007B87}
 .tev-share-menu{position:absolute;top:38px;right:0;background:var(--white);border:1.5px solid var(--border);border-radius:10px;box-shadow:var(--shadow-md);z-index:10;min-width:170px;padding:6px}
 .tev-share-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:9px 10px;border:none;background:none;border-radius:7px;font-size:12px;font-weight:600;color:var(--navy);cursor:pointer}
 .tev-share-item:hover{background:var(--bg)}
@@ -163,6 +164,30 @@ table.smtv td.dim{color:var(--muted)}
 .tev-panel.panel-radio{background:rgba(124,58,237,.05)}
 .tev-panel.panel-digital{background:rgba(0,184,200,.04);margin-bottom:0}
 .tev-panel .tev-panel-title{margin-bottom:10px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+/* Playlist */
+.pl-cat-header{display:flex;align-items:center;gap:10px;margin:18px 0 6px}
+.pl-cat-header:first-child{margin-top:0}
+.pl-cat-badge{font-size:14px;font-weight:800;color:#1e2838;border-radius:8px;padding:5px 16px;letter-spacing:.02em;cursor:pointer}
+.pl-cat-order{display:flex;flex-direction:column;gap:1px}
+.pl-order-btn{width:16px;height:13px;border:none;background:var(--bg);border-radius:3px;color:var(--text2);font-size:8px;line-height:1;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.pl-order-btn:hover:not(:disabled){background:var(--cyan-light);color:#007B87}
+.pl-order-btn:disabled{opacity:.3;cursor:default}
+.pl-cat-count{font-size:11px;color:var(--navy);font-weight:700;background:var(--bg);border:1.5px solid var(--border);border-radius:20px;padding:3px 12px}
+.pl-cat-excluded{font-size:10px;font-weight:700;color:#CC2222;background:#FFEAEA;border:1.5px solid #F5B8B8;border-radius:20px;padding:3px 10px;white-space:nowrap}
+.pl-group{background:var(--white);border:1.5px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
+.pl-header-row{display:grid;gap:0;background:var(--bg);border-bottom:2px solid var(--border)}
+.pl-header-row div{padding:6px 4px;text-align:center;font-size:8.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;line-height:1.2}
+.pl-row{display:grid;gap:0;align-items:center;border-bottom:1px solid var(--border);cursor:grab}
+.pl-row:hover{background:#F5F8FC}
+.pl-row input,.pl-row select{width:100%;padding:4px 3px;border-radius:5px;border:1.5px solid var(--border);font-size:11px;font-family:inherit;color:var(--navy);background:var(--white);text-align:center}
+.pl-row .pl-cat-input{font-weight:800;text-transform:uppercase}
+.pl-quota-FR{background:#EAF2FF;color:#1355A8}
+.pl-quota-EU{background:#FFF4E0;color:#B05E00}
+.pl-quota-US{background:#FDEBEA;color:#C4302B}
+.pl-remove-btn{width:20px;height:20px;border-radius:5px;background:#FFEAEA;border:1px solid #F5B8B8;color:#CC2222;cursor:pointer;font-size:11px;line-height:1;padding:0}
+.pl-mini-btn{width:22px;height:22px;border-radius:6px;background:var(--white);border:1.5px solid var(--border);color:var(--muted);cursor:pointer;font-size:12px;font-weight:800;line-height:1;padding:0}
+.pl-mini-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.pl-mini-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
 .tev-note{padding:12px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;font-size:12px;color:var(--text2);margin-bottom:18px}
 .evo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
 .evo-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px}
@@ -200,6 +225,7 @@ table.smtv td.dim{color:var(--muted)}
     <button class="hnav-btn" id="navBtnRadio" onclick="switchPage('radio')">📻 Classements Radios</button>
     <button class="hnav-btn" id="navBtnExcl" onclick="switchPage('excl')">🎯 Exclusivités</button>
     <button class="hnav-btn" id="navBtnYt" onclick="switchPage('yt')"><img src="data:image/png;base64,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" alt="YouTube" style="height:14px;vertical-align:-2px;margin-right:2px"> YouTube FR</button>
+    <button class="hnav-btn" id="navBtnPlaylist" onclick="switchPage('playlist')">🎵 Playlist</button>
   </nav>
   <span id="periodBadge" style="display:none"></span>
   <div class="spacer"></div>
@@ -313,6 +339,68 @@ table.smtv td.dim{color:var(--muted)}
     <div id="youtubePageBody"></div>
   </div>
 
+  <div class="card" id="pagePlaylist" style="display:none">
+    <div id="weekBannerPlaylist" style="display:none"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap">
+      <div class="section-label" style="margin-bottom:0">🎵 Playlist — <span id="playlistCountBadge">0 titre</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn-ghost" onclick="toggleArchivePanel()">🗄️ Archives</button>
+        <button class="btn-primary" onclick="savePlaylistArchive()">💾 Sauvegarder sur Drive</button>
+        <button class="btn-ghost" onclick="exportPlaylistPDF()">📄 PDF</button>
+        <button class="btn-ghost" onclick="exportPlaylistExcel()">📊 Excel</button>
+        <button class="btn-ghost" style="background:#FFEAEA;border-color:#F5B8B8;color:#CC2222" onclick="clearPlaylist()">Tout retirer</button>
+      </div>
+    </div>
+
+    <div id="playlistArchivePanel" style="display:none;padding:16px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;margin-bottom:16px;box-shadow:var(--shadow)">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+        <input id="playlistArchiveSearch" type="text" placeholder="🔍 Rechercher un artiste ou un titre dans les archives…"
+          style="flex:1;min-width:220px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:12px;font-family:inherit"
+          onkeydown="if(event.key==='Enter') searchPlaylistArchives()">
+        <button class="btn-ghost" onclick="searchPlaylistArchives()">Rechercher</button>
+        <select id="playlistArchiveDateSelect" style="padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:12px;font-family:inherit" onchange="loadPlaylistArchiveByDate(this.value)">
+          <option value="">— Charger une archive dans la Playlist —</option>
+        </select>
+        <button class="btn-ghost" onclick="cleanupOldPlaylistArchives()" title="Supprime les archives les plus anciennes au-delà des 20 plus récentes">🧹 Nettoyer les anciennes archives</button>
+      </div>
+      <div id="playlistArchiveResults" style="font-size:12px;color:var(--muted)">Chargement de la liste des archives…</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;margin-bottom:12px;box-shadow:var(--shadow)">
+      <span style="font-size:11px;font-weight:700;color:var(--text2);white-space:nowrap">🗓️ Validité de la playlist :</span>
+      <label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px">du
+        <input id="playlistValidityFrom" type="date" style="font-size:11.5px;padding:5px 8px;border-radius:6px;border:1.5px solid var(--border)" onchange="setPlaylistValidityFrom(this.value)">
+      </label>
+      <label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px">au
+        <input id="playlistValidityTo" type="date" style="font-size:11.5px;padding:5px 8px;border-radius:6px;border:1.5px solid var(--border)" onchange="setPlaylistValidityTo(this.value)">
+      </label>
+      <span style="font-size:10.5px;color:var(--muted)">— indicatif ; repris dans le nom du fichier exporté</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <span style="font-size:11px;font-weight:700;color:var(--text2);white-space:nowrap">➕ Ajouter un titre manuellement</span>
+      <input id="playlistManualArtist" type="text" placeholder="Artiste" style="flex:1;min-width:140px;padding:6px 10px;border-radius:7px;border:1.5px solid var(--border);font-size:12px;font-family:inherit">
+      <input id="playlistManualTitle" type="text" placeholder="Titre" style="flex:1;min-width:140px;padding:6px 10px;border-radius:7px;border:1.5px solid var(--border);font-size:12px;font-family:inherit" onkeydown="if(event.key==='Enter') addManualPlaylistTitle()">
+      <select id="playlistManualQuota" style="padding:6px 10px;border-radius:7px;border:1.5px solid var(--border);font-size:12px;font-family:inherit">
+        <option value="">Quota —</option>
+        <option value="FR">Quota FR</option>
+        <option value="EU">Quota EU</option>
+        <option value="US">Quota US</option>
+      </select>
+      <button onclick="addManualPlaylistTitle()" style="font-size:11px;padding:7px 14px;border-radius:7px;background:var(--navy);border:none;color:#fff;cursor:pointer;font-weight:700;white-space:nowrap">Ajouter</button>
+    </div>
+
+    <div style="font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+      Cliquez sur « ➕ Playlist » dans la fiche <strong>Full Song Metrics</strong> d'un titre (Classements TV, Radio, Exclusivités ou YouTube FR) pour l'ajouter ici — ou ajoutez-le manuellement ci-dessus. Renseignez pour chaque titre sa <strong>Catégorie</strong> (glisser-déposer possible entre groupes), son <strong>Quota</strong> (FR/EU/US), sa <strong>Date d'Entrée</strong> et son <strong>Label</strong>. Les colonnes <strong>Passages TV</strong> et <strong>Passages Radio</strong> reprennent le total de la semaine en cours, à titre indicatif. Cliquez sur le badge d'une catégorie pour l'exclure — ou la réintégrer — du PDF/Excel exporté.
+    </div>
+
+    <div id="playlistEmptyBar" style="display:none;padding:24px;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;font-size:13px;color:var(--text2);text-align:center"></div>
+    <div id="playlistList"></div>
+    <datalist id="plCatSuggestions">
+      <option value="P1"><option value="A1"><option value="H1"><option value="B1"><option value="C1"><option value="N1"><option value="H2">
+    </datalist>
+  </div>
+
 </main>
 
 <div id="toast"></div>
@@ -320,6 +408,7 @@ table.smtv td.dim{color:var(--muted)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════════════
 // UTILITAIRES
@@ -854,7 +943,8 @@ function renderTable(){
     <th class="sortable" onclick="setSort('__radio__')">Gén. Radio${sortArrow('__radio__')}</th>
     <th class="sortable" onclick="setSort('__shazam__')">${logoImg(LOGO_SHAZAM,'Shazam',16)} Shazam FR${sortArrow('__shazam__')}</th>
     <th class="sortable" onclick="setSort('__spotify__')">${logoImg(LOGO_SPOTIFY,'Spotify',16)} Spotify Weekly FR${sortArrow('__spotify__')}</th>
-    <th class="sortable" onclick="setSort('__youtube__')">${logoImg(LOGO_YOUTUBE,'YouTube',16)} YouTube FR${sortArrow('__youtube__')}</th></tr></thead>`;
+    <th class="sortable" onclick="setSort('__youtube__')">${logoImg(LOGO_YOUTUBE,'YouTube',16)} YouTube FR${sortArrow('__youtube__')}</th>
+    <th>🎵</th></tr></thead>`;
 
   let tbody='<tbody>';
   enriched.forEach(({r,nrj,indes,radio,shz,sp,yt})=>{
@@ -884,6 +974,7 @@ function renderTable(){
     tbody += `<td>${shz!=null?'#'+shz:'<span class="dim">–</span>'}</td>`;
     tbody += `<td>${sp!=null?'#'+sp:'<span class="dim">–</span>'}</td>`;
     tbody += `<td>${yt!=null?'#'+yt:'<span class="dim">–</span>'}</td>`;
+    tbody += `<td>${plMiniButton(r.artist,r.title)}</td>`;
     tbody += `</tr>`;
   });
   tbody += '</tbody>';
@@ -1442,6 +1533,7 @@ async function openTevByInfo(info){
   updateTevNavUI();
   loadCoverArt(artist, title);
   renderFpaLink(artist, title);
+  setupPlaylistBtn(artist, title);
 
   const s = await getTitleHistorySeries(artist, title);
   const sections = [];
@@ -1606,6 +1698,819 @@ function closeTitleEvolutionModal(e){
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+// PLAYLIST — repris de FPA (mêmes mécaniques : catégories, glisser-déposer,
+// export PDF/Excel) avec les adaptations demandées : pas de cases Call Out/
+// Power Intro/Power New, un attribut Quota (FR/EU/US) à la place, ajout
+// manuel ou depuis la fiche Full Song Metrics, playlist unique (pas de
+// double station comme dans FPA — Spin Music TV n'a pas ce découpage).
+// ═══════════════════════════════════════════════════════════════════════
+const PLAYLIST_STORAGE_KEY = 'smtv_playlist_titles';
+let playlistTitles = playlistLoadFromStorage();
+function playlistLoadFromStorage(){
+  try{ return JSON.parse(localStorage.getItem(PLAYLIST_STORAGE_KEY) || '[]'); }
+  catch(e){ return []; }
+}
+function playlistSaveToStorage(){
+  try{ localStorage.setItem(PLAYLIST_STORAGE_KEY, JSON.stringify(playlistTitles)); }catch(e){ /* quota localStorage, ignoré */ }
+}
+
+const PLAYLIST_CATEGORIES = ['P1','A1','H1','B1','C1','N1','H2'];
+const PLAYLIST_CAT_COLORS = {
+  P1: [175, 216, 148], A1: [216, 191, 250], H1: [247, 200, 150],
+  B1: [246, 173, 173], C1: [179, 209, 245], H2: [230, 206, 245], N1: [172, 221, 230]
+};
+const PLAYLIST_CAT_DEFAULT_COLOR = [225, 230, 238];
+// Palette de repli pour toute catégorie tapée qui ne fait pas partie des codes
+// ci-dessus — assignée de façon stable (toujours la même couleur pour une même
+// catégorie au sein d'une session), pour que les catégories personnalisées
+// restent lisibles et distinctes les unes des autres.
+const PLAYLIST_CAT_FALLBACK_PALETTE = [
+  [172, 221, 230], [246, 173, 173], [216, 191, 250], [247, 200, 150],
+  [179, 209, 245], [175, 216, 148], [230, 206, 245], [255, 214, 165], [200, 230, 201]
+];
+const __plCatColorCache = {};
+function categoryColor(cat){
+  if(PLAYLIST_CAT_COLORS[cat]) return PLAYLIST_CAT_COLORS[cat];
+  if(__plCatColorCache[cat]) return __plCatColorCache[cat];
+  let hash = 0;
+  for(let i=0;i<cat.length;i++) hash = (hash*31 + cat.charCodeAt(i)) >>> 0;
+  const color = PLAYLIST_CAT_FALLBACK_PALETTE[hash % PLAYLIST_CAT_FALLBACK_PALETTE.length];
+  __plCatColorCache[cat] = color;
+  return color;
+}
+
+function isInPlaylist(artist, title){
+  const key = matchKey(artist, title);
+  return playlistTitles.some(t => t.key === key);
+}
+function togglePlaylistTitle(artist, title){
+  const key = matchKey(artist, title);
+  const idx = playlistTitles.findIndex(t => t.key === key);
+  if(idx >= 0){
+    playlistTitles.splice(idx, 1);
+  } else {
+    playlistTitles.push({key, title, artist, addedAt:new Date().toISOString(), categorie:'', ancienneCategorie:'', quota:'', dateEntree:'', label:''});
+  }
+  playlistSaveToStorage();
+  updatePlaylistBadge();
+  refreshPlaylistModalButton(artist, title);
+  if(document.getElementById('pagePlaylist').style.display!=='none') renderPlaylistPage();
+  else if(document.getElementById('tableCard').style.display!=='none') renderTable();
+  else if(document.getElementById('pageRadio').style.display!=='none') renderRadioTable();
+}
+// Petit bouton +/✓ inline pour ajouter/retirer un titre de la Playlist
+// directement depuis une ligne de classement (TV ou Radio), sans passer
+// par la fiche Full Song Metrics.
+function plMiniButton(artist, title){
+  const inP = isInPlaylist(artist, title);
+  const a = escHtml(artist).replace(/'/g,"\\'");
+  const t = escHtml(title).replace(/'/g,"\\'");
+  return `<button class="pl-mini-btn ${inP?'active':''}" onclick="event.stopPropagation();togglePlaylistTitle('${a}','${t}')" title="${inP?'Retirer de la Playlist':'Ajouter à la Playlist'}">${inP?'✓':'+'}</button>`;
+}
+function refreshPlaylistModalButton(artist, title){
+  const btn = document.getElementById('tevPlaylistBtn');
+  if(!btn) return;
+  const cur = btn.getAttribute('data-artist');
+  if(normTxt(cur)!==normTxt(artist)) return; // la fiche ouverte n'est pas ce titre-là
+  const inP = isInPlaylist(artist, title);
+  btn.textContent = inP ? '✓ Dans la Playlist' : '➕ Playlist';
+  btn.classList.toggle('active', inP);
+}
+function setupPlaylistBtn(artist, title){
+  const btn = document.getElementById('tevPlaylistBtn');
+  if(!btn) return;
+  btn.setAttribute('data-artist', artist);
+  btn.setAttribute('data-title', title);
+  const inP = isInPlaylist(artist, title);
+  btn.textContent = inP ? '✓ Dans la Playlist' : '➕ Playlist';
+  btn.classList.toggle('active', inP);
+}
+function togglePlaylistFromModal(){
+  const btn = document.getElementById('tevPlaylistBtn');
+  if(!btn) return;
+  const artist = btn.getAttribute('data-artist') || '';
+  const title = btn.getAttribute('data-title') || '';
+  if(!title) return;
+  togglePlaylistTitle(artist, title);
+}
+function addManualPlaylistTitle(){
+  const artistInput = document.getElementById('playlistManualArtist');
+  const titleInput  = document.getElementById('playlistManualTitle');
+  const quotaInput  = document.getElementById('playlistManualQuota');
+  const artist = (artistInput && artistInput.value || '').trim();
+  const title  = (titleInput && titleInput.value || '').trim();
+  if(!artist || !title){ showToast("Renseignez l'artiste et le titre", 'err'); return; }
+  const key = matchKey(artist, title);
+  if(playlistTitles.some(t => t.key === key)){ showToast('Ce titre est déjà dans la Playlist', 'err'); return; }
+  playlistTitles.push({key, title, artist, addedAt:new Date().toISOString(), categorie:'', ancienneCategorie:'', quota:(quotaInput?quotaInput.value:''), dateEntree:'', label:'', manual:true});
+  playlistSaveToStorage();
+  updatePlaylistBadge();
+  if(artistInput) artistInput.value = '';
+  if(titleInput) titleInput.value = '';
+  if(quotaInput) quotaInput.value = '';
+  showToast('✓ « '+title+' » ajouté à la Playlist', 'success');
+  renderPlaylistPage();
+}
+function clearPlaylist(){
+  if(!playlistTitles.length) return;
+  if(!confirm('Retirer les '+playlistTitles.length+' titre(s) de la Playlist ?')) return;
+  playlistTitles = [];
+  playlistSaveToStorage();
+  updatePlaylistBadge();
+  renderPlaylistPage();
+}
+function updatePlaylistBadge(){
+  const el = document.getElementById('playlistCountBadge');
+  if(el) el.textContent = playlistTitles.length + ' titre' + (playlistTitles.length>1?'s':'');
+}
+
+// Ordre d'affichage des catégories, personnalisable par l'utilisateur (flèches
+// ▲▼ sur chaque badge) et mémorisé — prioritaire sur l'ordre par défaut
+// ci-dessous dès qu'une catégorie y figure.
+const PLAYLIST_CAT_ORDER_KEY = 'smtv_playlist_cat_order';
+let playlistCatOrder = (function(){ try{ return JSON.parse(localStorage.getItem(PLAYLIST_CAT_ORDER_KEY)||'[]'); }catch(e){ return []; } })();
+function playlistCatOrderSave(){ try{ localStorage.setItem(PLAYLIST_CAT_ORDER_KEY, JSON.stringify(playlistCatOrder)); }catch(e){} }
+function moveCategoryOrder(cat, delta){
+  const groups = playlistCategoryGroups(playlistTitles).filter(g=>g.cat!=='Non classé').map(g=>g.cat);
+  const idx = groups.indexOf(cat);
+  if(idx===-1) return;
+  const newIdx = idx+delta;
+  if(newIdx<0 || newIdx>=groups.length) return;
+  [groups[idx], groups[newIdx]] = [groups[newIdx], groups[idx]];
+  playlistCatOrder = groups;
+  playlistCatOrderSave();
+  renderPlaylistPage();
+}
+
+function playlistCategoryGroups(titles){
+  // Groupes DYNAMIQUES : n'importe quelle catégorie tapée devient immédiatement
+  // son propre groupe visible — plus de liste figée à faire correspondre
+  // exactement. Ordre : d'abord la priorité définie manuellement par
+  // l'utilisateur (playlistCatOrder), puis à défaut les codes connus dans
+  // leur ordre habituel, puis les catégories personnalisées par ordre alphabétique.
+  const order = [];
+  const map = {};
+  const other = [];
+  titles.forEach(t=>{
+    const cat = (t.categorie||'').toUpperCase().trim();
+    if(!cat){ other.push(t); return; }
+    if(!map[cat]){ map[cat]=[]; order.push(cat); }
+    map[cat].push(t);
+  });
+  order.sort((a,b)=>{
+    const pa = playlistCatOrder.indexOf(a), pb = playlistCatOrder.indexOf(b);
+    if(pa!==-1 && pb!==-1) return pa-pb;      // priorité définie manuellement par l'utilisateur
+    if(pa!==-1) return -1;
+    if(pb!==-1) return 1;
+    const ia = PLAYLIST_CATEGORIES.indexOf(a), ib = PLAYLIST_CATEGORIES.indexOf(b);
+    if(ia!==-1 && ib!==-1) return ia-ib;      // codes connus d'abord, dans l'ordre habituel
+    if(ia!==-1) return -1;
+    if(ib!==-1) return 1;
+    return a.localeCompare(b);                 // puis les catégories personnalisées, alphabétique
+  });
+  const result = order.map(cat=>({cat, items:map[cat]}));
+  if(other.length) result.push({cat:'Non classé', items:other});
+  return result;
+}
+function updatePlaylistField(key, field, value){
+  const t = playlistTitles.find(x=>x.key===key);
+  if(!t) return;
+  if(field==='categorie' && t.categorie && t.categorie!==value) t.ancienneCategorie = t.categorie;
+  t[field] = value;
+  playlistSaveToStorage();
+  if(field==='categorie') renderPlaylistPage();
+}
+
+// ── Import Excel : Label / Date d'Entrée / Quota vers les titres déjà présents ──
+const PLAYLIST_EXPORT_EXCLUDED_KEY = 'smtv_playlist_export_excluded_cats';
+let playlistExportExcludedCats = (function(){ try{ return JSON.parse(localStorage.getItem(PLAYLIST_EXPORT_EXCLUDED_KEY)||'[]'); }catch(e){ return []; } })();
+function isPlaylistCatExcludedFromExport(cat){ return playlistExportExcludedCats.includes((cat||'').toUpperCase().trim()); }
+function togglePlaylistExportCat(cat){
+  const norm = (cat||'').toUpperCase().trim();
+  if(!norm || norm==='NON CLASSÉ') return;
+  const idx = playlistExportExcludedCats.indexOf(norm);
+  if(idx===-1){ playlistExportExcludedCats.push(norm); showToast('🚫 Catégorie « '+norm+' » exclue du PDF/Excel exporté','success'); }
+  else { playlistExportExcludedCats.splice(idx,1); showToast('✓ Catégorie « '+norm+' » réintégrée','success'); }
+  try{ localStorage.setItem(PLAYLIST_EXPORT_EXCLUDED_KEY, JSON.stringify(playlistExportExcludedCats)); }catch(e){}
+  renderPlaylistPage();
+}
+
+// ── Validité indicative de la playlist ──
+const PLAYLIST_VALIDITY_KEY = 'smtv_playlist_validity';
+let playlistValidityPeriod = (function(){ try{ return JSON.parse(localStorage.getItem(PLAYLIST_VALIDITY_KEY)||'{}'); }catch(e){ return {}; } })();
+function playlistValiditySave(){ try{ localStorage.setItem(PLAYLIST_VALIDITY_KEY, JSON.stringify(playlistValidityPeriod)); }catch(e){} }
+function formatDateLocalISO(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function setPlaylistValidityFrom(val){
+  playlistValidityPeriod.from = val;
+  if(val && !playlistValidityPeriod.to){ const d=new Date(val+'T00:00:00'); d.setDate(d.getDate()+7); playlistValidityPeriod.to = formatDateLocalISO(d); document.getElementById('playlistValidityTo').value = playlistValidityPeriod.to; }
+  playlistValiditySave();
+}
+function setPlaylistValidityTo(val){ playlistValidityPeriod.to = val; playlistValiditySave(); }
+function playlistFormatDateRangeLabel(from, to){
+  const f = from instanceof Date ? from : new Date(from+'T00:00:00');
+  const t = to instanceof Date ? to : new Date(to+'T00:00:00');
+  const sameMonth = f.getMonth()===t.getMonth() && f.getFullYear()===t.getFullYear();
+  const monthF = f.toLocaleDateString('fr-FR',{month:'long'}), monthT = t.toLocaleDateString('fr-FR',{month:'long'});
+  if(sameMonth) return `du ${f.getDate()} au ${t.getDate()} ${monthT.toUpperCase()} ${t.getFullYear()}`;
+  return `du ${f.getDate()} ${monthF.toUpperCase()} au ${t.getDate()} ${monthT.toUpperCase()} ${t.getFullYear()}`;
+}
+function playlistWeekRange(){
+  if(playlistValidityPeriod.from && playlistValidityPeriod.to) return playlistFormatDateRangeLabel(playlistValidityPeriod.from, playlistValidityPeriod.to);
+  return tvParsed && tvParsed.period ? tvParsed.period : new Date().toLocaleDateString('fr-FR');
+}
+// Réutilise le logo CStar déjà chargé dans le header (badge "chan-chip"), sans dupliquer les données.
+function getCstarLogoDataUri(){
+  const img = document.querySelector('.chan-chip img[alt="CStar"]');
+  return img ? img.src : null;
+}
+// Date du jour (date de génération de l'export), pour le titre "Playlist CStar à compter du …".
+function playlistExportDateLabel(){
+  return new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+}
+function formatDateFr(iso){ if(!iso) return ''; const p=iso.split('-'); return p.length===3 ? (p[2]+'/'+p[1]+'/'+p[0]) : iso; }
+function formatDateFileDDMMYYYY(iso){ if(!iso) return ''; const p=iso.split('-'); return p.length===3 ? (p[2]+p[1]+p[0]) : iso; }
+
+// ── Rendu des lignes ──
+let playlistExpandedKeys = new Set();
+let playlistDraggedKey = null;
+function playlistDragStart(e,key){ playlistDraggedKey=key; e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain',key);}catch(err){} e.currentTarget.style.opacity='.4'; }
+function playlistDragEnd(e){ e.currentTarget.style.opacity='1'; playlistDraggedKey=null; }
+function playlistDropOnCategory(e, targetCat){
+  e.preventDefault();
+  const key = playlistDraggedKey; playlistDraggedKey=null;
+  if(!key) return;
+  const t = playlistTitles.find(x=>x.key===key);
+  if(!t) return;
+  const newCat = targetCat==='Non classé' ? '' : targetCat;
+  if((t.categorie||'').toUpperCase().trim()===newCat) return;
+  updatePlaylistField(key,'categorie',newCat);
+  showToast('✓ « '+t.title+' » déplacé en catégorie '+(newCat||'(non classé)'),'success');
+}
+function togglePlaylistExpand(key){
+  if(playlistExpandedKeys.has(key)) playlistExpandedKeys.delete(key); else playlistExpandedKeys.add(key);
+  renderPlaylistPage();
+}
+const PLAYLIST_ROW_GRID = '22px 150px 190px 56px 56px 60px 54px 54px 112px 130px 24px';
+function buildPlaylistRow(t){
+  const expanded = playlistExpandedKeys.has(t.key);
+  const catNorm = (t.categorie||'').toUpperCase().trim();
+  const catColor = catNorm ? categoryColor(catNorm) : null;
+  const catBg = catColor ? `rgb(${catColor.join(',')})` : 'var(--white)';
+  const tvRow = findRowInParsed(tvParsed, t.artist, t.title);
+  const radioRow = findRowInParsed(radioParsed, t.artist, t.title);
+  const tvVal = tvRow ? (tvRow.nbdiff!=null?tvRow.nbdiff:'') : '';
+  const radioVal = radioRow ? (radioRow.nbdiff!=null?radioRow.nbdiff:'') : '';
+  const quotaCls = t.quota ? ('pl-quota-'+t.quota) : '';
+
+  const rowHtml = `<div class="pl-row" style="grid-template-columns:${PLAYLIST_ROW_GRID}" draggable="true" ondragstart="playlistDragStart(event,'${t.key}')" ondragend="playlistDragEnd(event)">
+    <div style="padding:7px 0 7px 8px;cursor:pointer" onclick="togglePlaylistExpand('${t.key}')" title="${expanded?'Réduire':'Voir la pochette et la fiche'}">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);transition:transform .15s;transform:rotate(${expanded?90:0}deg)"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div style="padding:7px 6px;font-size:11.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${escHtml(t.artist)}">${escHtml(t.artist)}</div>
+    <div style="padding:7px 6px;font-size:11.5px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${escHtml(t.title)}">${escHtml(t.title)}</div>
+    <div style="padding:4px">
+      <input type="text" class="pl-cat-input" list="plCatSuggestions" maxlength="12" placeholder="—" value="${escHtml(t.categorie||'')}" style="background:${catBg}" draggable="false"
+        onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true"
+        onchange="updatePlaylistField('${t.key}','categorie',this.value.toUpperCase().trim())">
+    </div>
+    <div style="padding:4px">
+      <input type="text" maxlength="3" placeholder="—" value="${escHtml(t.ancienneCategorie||'')}" style="color:var(--muted);font-weight:700" draggable="false"
+        onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true"
+        onchange="updatePlaylistField('${t.key}','ancienneCategorie',this.value.toUpperCase().trim())" title="Mis à jour automatiquement quand la Catégorie change, modifiable">
+    </div>
+    <div style="padding:4px">
+      <select class="${quotaCls}" draggable="false" onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true" onchange="updatePlaylistField('${t.key}','quota',this.value)">
+        <option value="" ${!t.quota?'selected':''}>—</option>
+        <option value="FR" ${t.quota==='FR'?'selected':''}>FR</option>
+        <option value="EU" ${t.quota==='EU'?'selected':''}>EU</option>
+        <option value="US" ${t.quota==='US'?'selected':''}>US</option>
+      </select>
+    </div>
+    <div style="padding:7px 4px;text-align:center;font-size:11px;font-weight:700;color:var(--text2)">${tvVal!==''?tvVal:'<span class="dim">–</span>'}</div>
+    <div style="padding:7px 4px;text-align:center;font-size:11px;font-weight:700;color:var(--text2)">${radioVal!==''?radioVal:'<span class="dim">–</span>'}</div>
+    <div style="padding:4px">
+      <input type="date" value="${t.dateEntree||''}" draggable="false" onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true" onchange="updatePlaylistField('${t.key}','dateEntree',this.value)">
+    </div>
+    <div style="padding:4px 6px 4px 4px">
+      <input type="text" placeholder="Label" value="${escHtml(t.label||'')}" draggable="false" onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true" onchange="updatePlaylistField('${t.key}','label',this.value)">
+    </div>
+    <div style="padding:7px 8px 7px 0;text-align:center">
+      <button class="pl-remove-btn" onclick="togglePlaylistTitle('${escHtml(t.artist).replace(/'/g,"\\'")}','${escHtml(t.title).replace(/'/g,"\\'")}')" title="Retirer de la Playlist">✕</button>
+    </div>
+  </div>`;
+
+  const detailHtml = expanded ? `<div style="padding:12px 16px 16px 40px;background:var(--bg);border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div id="plCover-${t.key}" style="flex-shrink:0;width:64px;height:64px;border-radius:10px;overflow:hidden;background:var(--white);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted)">🎵</div>
+        <div class="tev-click" data-evotitle="${evoAttr(t.title, t.artist)}" onclick="openTitleEvolutionModal(this)" style="font-size:11px;font-weight:700;color:var(--cyan);cursor:pointer">📈 Voir la fiche complète</div>
+      </div>
+    </div>` : '';
+  return rowHtml + detailHtml;
+}
+function playlistTableHeader(){
+  const labels = ['','Artiste','Titre','Catégorie','Anc. Cat.','Quota','TV','Radio',"Date d'Entrée",'Label',''];
+  const cells = labels.map(l=>`<div>${l}</div>`).join('');
+  return `<div class="pl-header-row" style="grid-template-columns:${PLAYLIST_ROW_GRID}">${cells}</div>`;
+}
+function renderPlaylistPage(){
+  updatePlaylistBadge();
+  updatePlaylistValidityUI();
+  renderWeekBanner('weekBannerPlaylist', tvParsed && tvParsed.period);
+  const listEl = document.getElementById('playlistList');
+  if(!listEl) return;
+  if(!playlistTitles.length){
+    playlistShowEmpty('🎵 Aucun titre dans la Playlist pour l\'instant. Ouvrez la fiche « Full Song Metrics » d\'un titre (dans n\'importe quel classement) et cliquez « ➕ Playlist », ou ajoutez-en un manuellement ci-dessus.');
+    return;
+  }
+  document.getElementById('playlistEmptyBar').style.display = 'none';
+  const groups = playlistCategoryGroups(playlistTitles);
+  const orderableGroups = groups.filter(g=>g.cat!=='Non classé');
+  const html = groups.map(group=>{
+    const rowsHtml = group.items.map(t=>{
+      try{ return buildPlaylistRow(t); }
+      catch(e){ return `<div style="padding:8px 12px;font-size:11px;color:#CC2222">⚠️ Erreur d'affichage pour « ${escHtml(t.title||'')} »</div>`; }
+    }).join('');
+    const catColor = group.cat==='Non classé' ? PLAYLIST_CAT_DEFAULT_COLOR : categoryColor((group.cat||'').toUpperCase().trim());
+    const catBg = `rgb(${catColor.join(',')})`;
+    const clickable = group.cat!=='Non classé';
+    const excluded = clickable && isPlaylistCatExcludedFromExport(group.cat);
+    const excludedBadge = excluded ? `<div class="pl-cat-excluded">🚫 Exclue du PDF/Excel</div>` : '';
+    const orderIdx = orderableGroups.indexOf(group);
+    const catEsc = group.cat.replace(/'/g,"\\'");
+    const reorderArrows = clickable ? `<div class="pl-cat-order">
+        <button class="pl-order-btn" ${orderIdx<=0?'disabled':''} onclick="event.stopPropagation();moveCategoryOrder('${catEsc}',-1)" title="Monter cette catégorie">▲</button>
+        <button class="pl-order-btn" ${orderIdx>=orderableGroups.length-1?'disabled':''} onclick="event.stopPropagation();moveCategoryOrder('${catEsc}',1)" title="Descendre cette catégorie">▼</button>
+      </div>` : '';
+    return `<div class="pl-cat-header">
+        ${reorderArrows}
+        <div class="pl-cat-badge" style="background:${catBg};${excluded?'opacity:.45;text-decoration:line-through':''}" ${clickable?`onclick="togglePlaylistExportCat('${catEsc}')"`:''}
+          title="${clickable ? (excluded?"Cliquer pour la réintégrer":"Cliquer pour l'exclure du PDF/Excel exporté") : ''}">${escHtml(group.cat)}</div>
+        <div class="pl-cat-count">${group.items.length} titre${group.items.length>1?'s':''}</div>
+        ${excludedBadge}
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+      </div>
+      <div class="pl-group" ondragover="event.preventDefault();this.style.outline='2px dashed var(--cyan)';this.style.outlineOffset='-2px'" ondragleave="this.style.outline='none'" ondrop="this.style.outline='none';playlistDropOnCategory(event,'${catEsc}')">
+        ${playlistTableHeader()}
+        ${rowsHtml}
+      </div>`;
+  }).join('');
+  listEl.innerHTML = html;
+
+  playlistTitles.forEach(t=>{
+    if(!playlistExpandedKeys.has(t.key)) return;
+    const cacheKey = normTxt(t.artist)+'|||'+normTxt(t.title);
+    if(__coverArtCache[cacheKey]!==undefined){
+      const url = __coverArtCache[cacheKey];
+      const wrap = document.getElementById('plCover-'+t.key);
+      if(wrap && url) wrap.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+      return;
+    }
+    fetch('https://itunes.apple.com/search?term='+encodeURIComponent(t.artist+' '+t.title)+'&entity=song&limit=1')
+      .then(r=>r.json()).then(data=>{
+        let url = null;
+        if(data && data.results && data.results[0] && data.results[0].artworkUrl100) url = data.results[0].artworkUrl100.replace('100x100bb','600x600bb');
+        __coverArtCache[cacheKey] = url;
+        const wrap = document.getElementById('plCover-'+t.key);
+        if(wrap && url) wrap.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+      }).catch(()=>{});
+  });
+}
+function playlistShowEmpty(msg){
+  const emptyEl = document.getElementById('playlistEmptyBar');
+  const listEl = document.getElementById('playlistList');
+  if(emptyEl){ emptyEl.style.display='block'; emptyEl.innerHTML=msg; }
+  if(listEl) listEl.innerHTML='';
+}
+function updatePlaylistValidityUI(){
+  const fromEl = document.getElementById('playlistValidityFrom');
+  const toEl = document.getElementById('playlistValidityTo');
+  if(fromEl) fromEl.value = playlistValidityPeriod.from || '';
+  if(toEl) toEl.value = playlistValidityPeriod.to || '';
+}
+
+// ── Export PDF (jsPDF, dessin sur-mesure — même construction que FPA) ──
+function truncateForPdf(doc, text, maxWidth){
+  if(doc.getTextWidth(text) <= maxWidth) return text;
+  let t = text;
+  while(t.length>1 && doc.getTextWidth(t+'…')>maxWidth) t = t.slice(0,-1);
+  return t+'…';
+}
+function fitPdfCellText(doc, text, maxWidth, baseFontSize, minFontSize){
+  let size = baseFontSize;
+  doc.setFontSize(size);
+  while(size>minFontSize && doc.getTextWidth(text)>maxWidth){ size-=0.4; doc.setFontSize(size); }
+  if(doc.getTextWidth(text)>maxWidth) text = truncateForPdf(doc, text, maxWidth);
+  return {text, size};
+}
+function fitPdfFontSize(doc, text, maxWidth, startSize, minSize){
+  let size = startSize;
+  doc.setFontSize(size);
+  while(size>minSize && doc.getTextWidth(text)>maxWidth){ size-=0.5; doc.setFontSize(size); }
+  const w = doc.getTextWidth(text);
+  if(w>maxWidth && maxWidth>0){ size = Math.max(4, size*(maxWidth/w)*0.98); doc.setFontSize(size); }
+  return size;
+}
+function pdfArtistCase(s){ return (s||'').toUpperCase(); }
+function pdfTitleCase(s){ return (s||'').toLowerCase().replace(/(^|[\s'\-])([a-zà-ÿ])/g,(m,sep,c)=>sep+c.toUpperCase()); }
+
+async function exportPlaylistPDF(){
+  if(typeof window.jspdf === 'undefined'){ showToast("Bibliothèque PDF non chargée — vérifiez la connexion internet",'err'); return; }
+  if(!playlistTitles.length){ showToast('Aucun titre dans la Playlist à exporter','err'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4'});
+  const PW=210, PH=297, ML=14, MR=14, CW=PW-ML-MR;
+  const COL_NAVY=[11,29,58], COL_CYAN=[0,184,200], COL_TEXT=[30,40,56], COL_MUTED=[110,122,142], COL_MUTED2=[150,158,172], COL_CHANGE=[200,90,20];
+
+  const cols = { numW:7, artW:44, titW:52, catW:12, prevCatW:12, quotaW:12, entW:14 };
+  cols.labW = CW - (cols.numW+cols.artW+cols.titW+cols.catW+cols.prevCatW+cols.quotaW+cols.entW);
+
+  const allGroups = playlistCategoryGroups(playlistTitles).filter(g=>g.cat!=='Non classé');
+  const groups = allGroups.filter(g=>!isPlaylistCatExcludedFromExport(g.cat));
+  const totalRows = groups.reduce((n,g)=>n+g.items.length,0);
+  if(!totalRows){
+    showToast(allGroups.length ? 'Toutes les catégories sont exclues du PDF — cliquez sur un badge pour la réintégrer' : 'Aucun titre catégorisé à exporter', 'err');
+    return;
+  }
+  const TOP_MARGIN=10, HEADER_LOGO_H=17, COLBAND_H=6, COLBAND_GAP=2, FOOTER_RESERVE=9, GROUP_GAP=4, SAFETY_MARGIN=6;
+  const overhead = TOP_MARGIN+HEADER_LOGO_H+COLBAND_H+COLBAND_GAP+FOOTER_RESERVE+SAFETY_MARGIN+(groups.length*GROUP_GAP);
+  const availableForRows = PH - overhead;
+  const rowH = Math.max(2.6, Math.min(5.4, availableForRows/totalRows));
+  const fontMain = Math.max(6, Math.min(8.2, rowH*1.62));
+  const fontSmall = Math.max(5.2, fontMain-1.3);
+
+  let y=0, pageNum=1;
+  function addPageHeader(){
+    y = TOP_MARGIN;
+    const cstarLogo = getCstarLogoDataUri();
+    const logoH = 14, logoW = logoH * (551/160); // ratio réel du logo CStar (551×160px)
+    if(cstarLogo) doc.addImage(cstarLogo, 'PNG', ML, y, logoW, logoH);
+    const fullText = 'PLAYLIST CSTAR À COMPTER DU ' + playlistExportDateLabel().toUpperCase();
+    const tx0 = ML + (cstarLogo?logoW:0) + 6;
+    const maxTitleWidth = PW - MR - tx0;
+    doc.setFont('helvetica','bold');
+    const titleSize = fitPdfFontSize(doc, fullText, maxTitleWidth, 18, 8);
+    doc.setFontSize(titleSize);
+    doc.setTextColor(20,20,20);
+    doc.text(fullText, tx0, y+logoH/2+titleSize/2.8);
+    y += HEADER_LOGO_H + 2;
+    doc.setFillColor(...COL_NAVY);
+    doc.rect(ML, y, CW, COLBAND_H, 'F');
+    doc.setFont('helvetica','bold');
+    const bandFontSize = Math.min(fontMain, 7.5);
+    doc.setFontSize(bandFontSize);
+    doc.setTextColor(255,255,255);
+    let cx = ML+cols.numW;
+    const bandBaseline = y+COLBAND_H/2+1.1;
+    doc.text('ARTISTE', cx+cols.artW/2, bandBaseline, {align:'center'}); cx+=cols.artW;
+    doc.text('TITRE', cx+cols.titW/2, bandBaseline, {align:'center'}); cx+=cols.titW;
+    doc.text('CAT.', cx+cols.catW/2, bandBaseline, {align:'center'}); cx+=cols.catW;
+    doc.text('ANC.', cx+cols.prevCatW/2, bandBaseline, {align:'center'}); cx+=cols.prevCatW;
+    doc.text('QUOTA', cx+cols.quotaW/2, bandBaseline, {align:'center'}); cx+=cols.quotaW;
+    doc.text('ENTRÉE', cx+cols.entW/2, bandBaseline, {align:'center'}); cx+=cols.entW;
+    doc.text('LABEL', cx+cols.labW/2, bandBaseline, {align:'center'});
+    y += COLBAND_H + COLBAND_GAP;
+  }
+  function addPageFooter(){
+    doc.setFontSize(7); doc.setTextColor(...COL_MUTED); doc.setFont('helvetica','normal');
+    doc.text('Playlist générée automatiquement — Spin Music TV', ML, PH-6);
+    doc.text('Page '+pageNum, PW-MR, PH-6, {align:'right'});
+  }
+  function checkPageBreak(needed){
+    if(y+needed > PH-FOOTER_RESERVE+3){ addPageFooter(); doc.addPage(); pageNum++; addPageHeader(); }
+  }
+  addPageHeader();
+  groups.forEach(group=>{
+    checkPageBreak(rowH*2);
+    y += GROUP_GAP;
+    group.items.forEach((t,idx)=>{
+      checkPageBreak(rowH+1);
+      const cat = (t.categorie||'').toUpperCase().trim();
+      const color = cat ? categoryColor(cat) : PLAYLIST_CAT_DEFAULT_COLOR;
+      const prevCat = (t.ancienneCategorie||'').toUpperCase().trim();
+      let x = ML;
+      const baseline = y+rowH/2+fontMain/2.8, baselineSmall = y+rowH/2+fontSmall/2.8;
+      doc.setFont('helvetica','bold'); doc.setFontSize(fontSmall); doc.setTextColor(200,30,30);
+      doc.text(String(idx+1), x+cols.numW/2, baselineSmall, {align:'center'}); x += cols.numW;
+
+      doc.setFont('helvetica','bold');
+      const artFit = fitPdfCellText(doc, pdfArtistCase(t.artist), cols.artW-3, fontMain, Math.max(5.5,fontMain*0.7));
+      doc.setFontSize(artFit.size); doc.setTextColor(...COL_TEXT); doc.text(artFit.text, x+1.5, baseline); x += cols.artW;
+
+      doc.setFont('helvetica','normal');
+      const titFit = fitPdfCellText(doc, pdfTitleCase(t.title), cols.titW-3, fontMain, Math.max(5.5,fontMain*0.7));
+      doc.setFontSize(titFit.size); doc.text(titFit.text, x+1.5, baseline); x += cols.titW;
+
+      doc.setFont('helvetica','bold'); doc.setFontSize(fontSmall);
+      const catLabel = cat || '—';
+      const catTextW = doc.getTextWidth(catLabel);
+      const badgeW = Math.min(cols.catW-1.5, catTextW+2.8);
+      const badgeH = Math.min(rowH-0.8, fontSmall*0.26+1.4);
+      const badgeCx = x+cols.catW/2, badgeCy = y+rowH/2;
+      doc.setFillColor(...color);
+      doc.roundedRect(badgeCx-badgeW/2, badgeCy-badgeH/2, badgeW, badgeH, badgeH/2.4, badgeH/2.4, 'F');
+      doc.setTextColor(30,40,30);
+      doc.text(catLabel, badgeCx, badgeCy, {align:'center', baseline:'middle'});
+      x += cols.catW;
+
+      doc.setFont('helvetica', prevCat && prevCat!==cat ? 'bold':'normal');
+      doc.setTextColor(...(prevCat && prevCat!==cat ? COL_CHANGE : COL_MUTED2));
+      doc.text(prevCat||'—', x+cols.prevCatW/2, baselineSmall, {align:'center'}); x += cols.prevCatW;
+
+      doc.setFont('helvetica','bold'); doc.setTextColor(...COL_TEXT);
+      doc.text(t.quota||'—', x+cols.quotaW/2, baselineSmall, {align:'center'}); x += cols.quotaW;
+
+      doc.setFont('helvetica','normal'); doc.setFontSize(fontSmall); doc.setTextColor(...COL_TEXT);
+      doc.text(formatDateFr(t.dateEntree)||'—', x+cols.entW/2, baselineSmall, {align:'center'}); x += cols.entW;
+
+      doc.text(truncateForPdf(doc, t.label||'—', cols.labW-3), x+cols.labW/2, baselineSmall, {align:'center'});
+      y += rowH;
+    });
+  });
+  addPageFooter();
+  const suffix = (playlistValidityPeriod.from && playlistValidityPeriod.to)
+    ? 'du '+formatDateFileDDMMYYYY(playlistValidityPeriod.from)+' au '+formatDateFileDDMMYYYY(playlistValidityPeriod.to)
+    : '- '+new Date().toISOString().slice(0,10);
+  doc.save('Playlist CStar '+suffix+'.pdf');
+  showToast('✓ Playlist exportée en PDF','success');
+}
+
+// ── Export Excel (ExcelJS) ──
+async function exportPlaylistExcel(){
+  if(typeof ExcelJS === 'undefined'){ showToast('Bibliothèque Excel non chargée — vérifiez la connexion internet','err'); return; }
+  if(!playlistTitles.length){ showToast('Aucun titre dans la Playlist à exporter','err'); return; }
+  const allGroups = playlistCategoryGroups(playlistTitles).filter(g=>g.cat!=='Non classé');
+  const groups = allGroups.filter(g=>!isPlaylistCatExcludedFromExport(g.cat));
+  const totalRows = groups.reduce((n,g)=>n+g.items.length,0);
+  if(!totalRows){
+    showToast(allGroups.length ? "Toutes les catégories sont exclues de l'Excel — cliquez sur un badge pour la réintégrer" : 'Aucun titre catégorisé à exporter', 'err');
+    return;
+  }
+  const COL_NAVY = {argb:'FF0B1D3A'};
+  const rgbToArgb = arr => 'FF'+arr.map(v=>v.toString(16).padStart(2,'0').toUpperCase()).join('');
+
+  const wb = new ExcelJS.Workbook();
+  wb.creator = 'Spin Music TV';
+  wb.created = new Date();
+  const ws = wb.addWorksheet('Playlist', {views:[{showGridLines:false}]});
+  const HEADER = ['N°','ARTISTE','TITRE','CATEGORIE','CAT. PRECEDENTE','QUOTA','ENTRÉE PLAYLIST','LABEL'];
+  const LAST_COL = HEADER.length;
+  ws.columns = [{width:6},{width:28},{width:34},{width:12},{width:16},{width:9},{width:15},{width:20}];
+
+  ws.getRow(1).height = 8;
+  const cstarLogo = getCstarLogoDataUri();
+  if(cstarLogo){
+    const logoImgId = wb.addImage({ base64: cstarLogo, extension: 'png' });
+    const logoH = 50, logoW = logoH * (551/160); // ratio réel du logo CStar (551×160px)
+    ws.addImage(logoImgId, { tl: { col: 0.15, row: 0.15 }, ext: { width: logoW, height: logoH } });
+  }
+  ws.mergeCells(2,2,2,LAST_COL);
+  const titleCell = ws.getCell(2,2);
+  titleCell.value = 'PLAYLIST CSTAR À COMPTER DU '+playlistExportDateLabel().toUpperCase();
+  titleCell.font = {name:'Arial', size:20, bold:true, color:COL_NAVY};
+  titleCell.alignment = {horizontal:'center', vertical:'middle'};
+  ws.getRow(2).height = 40;
+  ws.getRow(3).height = 10;
+
+  const headerRow = ws.getRow(4);
+  HEADER.forEach((h,i)=>{
+    const cell = headerRow.getCell(i+1);
+    cell.value = h;
+    cell.font = {name:'Arial', size:10, bold:true, color:{argb:'FFFFFFFF'}};
+    cell.fill = {type:'pattern', pattern:'solid', fgColor:COL_NAVY};
+    cell.alignment = {horizontal:'center', vertical:'middle'};
+  });
+  headerRow.height = 20;
+  ws.getRow(5).height = 8;
+
+  const THIN_GREY = {style:'thin', color:{argb:'FFD9DEE6'}};
+  const BORDER_ALL = {top:THIN_GREY, bottom:THIN_GREY, left:THIN_GREY, right:THIN_GREY};
+
+  let rIdx = 6;
+  groups.forEach(group=>{
+    let n=0;
+    group.items.forEach(t=>{
+      n++;
+      const row = ws.getRow(rIdx);
+      const cat = (t.categorie||'').toUpperCase().trim();
+      const catColorArr = cat ? categoryColor(cat) : PLAYLIST_CAT_DEFAULT_COLOR;
+      row.getCell(1).value = n; row.getCell(1).font = {name:'Arial', size:10, bold:true, color:{argb:'FFCC1E1E'}};
+      row.getCell(2).value = pdfArtistCase(t.artist); row.getCell(2).font = {name:'Arial', size:10, bold:true};
+      row.getCell(3).value = pdfTitleCase(t.title); row.getCell(3).font = {name:'Arial', size:10};
+      row.getCell(4).value = cat; row.getCell(4).font = {name:'Arial', size:10, bold:true};
+      row.getCell(4).fill = {type:'pattern', pattern:'solid', fgColor:{argb:rgbToArgb(catColorArr)}};
+      const prevCat = (t.ancienneCategorie||'').toUpperCase().trim();
+      row.getCell(5).value = prevCat;
+      row.getCell(5).font = {name:'Arial', size:9, bold:!!(prevCat && prevCat!==cat), color:{argb: prevCat && prevCat!==cat ? 'FFC85A14':'FF96A0AC'}};
+      row.getCell(6).value = t.quota || ''; row.getCell(6).font = {name:'Arial', size:10, bold:true};
+      if(t.dateEntree){ row.getCell(7).value = new Date(t.dateEntree+'T00:00:00'); row.getCell(7).numFmt = 'dd/mm/yyyy'; }
+      row.getCell(7).font = {name:'Arial', size:10};
+      row.getCell(8).value = t.label || ''; row.getCell(8).font = {name:'Arial', size:10};
+      for(let c=1;c<=LAST_COL;c++){ row.getCell(c).alignment = {horizontal: c<=3?'left':'center', vertical:'middle'}; row.getCell(c).border = BORDER_ALL; }
+      row.height = 16;
+      rIdx++;
+    });
+    rIdx++;
+  });
+
+  const buf = await wb.xlsx.writeBuffer();
+  const blob = new Blob([buf], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const suffix = (playlistValidityPeriod.from && playlistValidityPeriod.to)
+    ? 'du '+formatDateFileDDMMYYYY(playlistValidityPeriod.from)+' au '+formatDateFileDDMMYYYY(playlistValidityPeriod.to)
+    : '- '+new Date().toISOString().slice(0,10);
+  a.download = 'Playlist CStar '+suffix+'.xlsx';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  showToast('✓ Playlist exportée en Excel','success');
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// ARCHIVAGE DRIVE DE LA PLAYLIST — repris de FPA (même mécanisme Drive Sync,
+// clés séparées : préfixe 'smtv_playlist_archive_' plutôt que 'playlist_'
+// pour ne jamais se mélanger avec les archives Playlist de FPA sur le même
+// backend). Chaque sauvegarde crée une archive DISTINCTE, horodatée — pas
+// un simple remplacement de la précédente — pour garder un historique.
+// ═══════════════════════════════════════════════════════════════════════
+const PLAYLIST_ARCHIVE_PREFIX = 'smtv_playlist_archive_';
+let playlistArchiveListCache = null;
+const playlistArchiveDataCache = {};
+
+function playlistArchiveTimestampNow(){
+  const now = new Date();
+  const p = n => String(n).padStart(2,'0');
+  return now.getFullYear()+'-'+p(now.getMonth()+1)+'-'+p(now.getDate())+'T'+p(now.getHours())+'-'+p(now.getMinutes())+'-'+p(now.getSeconds());
+}
+function playlistArchiveKey(ts){ return PLAYLIST_ARCHIVE_PREFIX + ts; }
+function formatArchiveTimestamp(ts){
+  const m = ts.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})/);
+  if(!m) return ts;
+  const d = new Date(+m[1], +m[2]-1, +m[3]);
+  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}) + ' à ' + m[4] + ':' + m[5];
+}
+
+async function savePlaylistArchive(){
+  if(!DRIVE_SYNC_URL){ showToast('Configurez d\'abord la synchronisation Drive (☁️ Drive)','err'); toggleDriveSyncPanel(); return; }
+  if(!playlistTitles.length){ showToast('Aucun titre dans la Playlist à sauvegarder','err'); return; }
+  const ts = playlistArchiveTimestampNow();
+  const payload = {
+    date: ts.slice(0,10),
+    savedAt: new Date().toISOString(),
+    period: tvParsed ? tvParsed.period : '',      // semaine de classement en cours au moment de l'archivage
+    validity: {...playlistValidityPeriod},         // période de validité indicative de la playlist elle-même
+    titles: playlistTitles
+  };
+  showToast('⏳ Sauvegarde de la Playlist en cours…', 'success');
+  try{
+    await driveCall('save', playlistArchiveKey(ts), JSON.stringify(payload));
+    showToast('✓ Playlist archivée sur Drive ('+formatArchiveTimestamp(ts)+')','success');
+    playlistArchiveListCache = null;
+    playlistArchiveDataCache[ts] = payload;
+    const panel = document.getElementById('playlistArchivePanel');
+    if(panel && panel.style.display!=='none') refreshPlaylistArchivePanel();
+    pruneOldPlaylistArchives().catch(()=>{});
+  }catch(e){
+    showToast('Erreur lors de la sauvegarde : '+(e.message||e),'err');
+  }
+}
+
+const PLAYLIST_ARCHIVE_RETENTION = 20;
+async function pruneOldPlaylistArchives(){
+  playlistArchiveListCache = null;
+  const entries = await getPlaylistArchiveList();
+  const toDelete = entries.slice(PLAYLIST_ARCHIVE_RETENTION);
+  for(const ts of toDelete){
+    await driveCall('delete', playlistArchiveKey(ts));
+    delete playlistArchiveDataCache[ts];
+  }
+  if(toDelete.length) playlistArchiveListCache = null;
+}
+async function cleanupOldPlaylistArchives(){
+  if(!DRIVE_SYNC_URL){ showToast('Synchronisation Drive non configurée','err'); return; }
+  const resultsEl = document.getElementById('playlistArchiveResults');
+  if(resultsEl) resultsEl.textContent = '⏳ Liste des archives…';
+  playlistArchiveListCache = null;
+  const entries = await getPlaylistArchiveList();
+  const toDelete = entries.slice(PLAYLIST_ARCHIVE_RETENTION);
+  if(!toDelete.length){
+    showToast('Rien à nettoyer — '+entries.length+' archive(s), déjà sous la limite de '+PLAYLIST_ARCHIVE_RETENTION,'success');
+    refreshPlaylistArchivePanel();
+    return;
+  }
+  if(!confirm('Supprimer les '+toDelete.length+' archive(s) les plus anciennes sur Drive (au-delà des '+PLAYLIST_ARCHIVE_RETENTION+' plus récentes) ? Irréversible.')) return;
+  let done=0, failed=0;
+  for(const ts of toDelete){
+    if(resultsEl) resultsEl.textContent = `⏳ Suppression ${done+failed+1}/${toDelete.length}…`;
+    try{ await driveCall('delete', playlistArchiveKey(ts)); delete playlistArchiveDataCache[ts]; done++; }
+    catch(e){ failed++; }
+  }
+  playlistArchiveListCache = null;
+  showToast('✓ '+done+' archive(s) supprimée(s)'+(failed?' · '+failed+' échec(s)':''),'success');
+  refreshPlaylistArchivePanel();
+}
+async function getPlaylistArchiveList(){
+  if(playlistArchiveListCache) return playlistArchiveListCache;
+  if(!DRIVE_SYNC_URL) return [];
+  try{
+    const r = await driveCall('list');
+    if(!r || r.ok===false || !Array.isArray(r.keys)) return [];
+    const entries = r.keys
+      .filter(k=>k.startsWith(PLAYLIST_ARCHIVE_PREFIX))
+      .map(k=>k.slice(PLAYLIST_ARCHIVE_PREFIX.length))
+      .filter(d=>/^\d{4}-\d{2}-\d{2}(T\d{2}-\d{2}-\d{2})?$/.test(d))
+      .sort((a,b)=>b.localeCompare(a));
+    playlistArchiveListCache = entries;
+    return entries;
+  }catch(e){ return []; }
+}
+async function loadPlaylistArchiveData(ts){
+  if(playlistArchiveDataCache[ts]) return playlistArchiveDataCache[ts];
+  const r = await driveCall('load', playlistArchiveKey(ts));
+  const data = JSON.parse(r.data);
+  playlistArchiveDataCache[ts] = data;
+  return data;
+}
+function toggleArchivePanel(){
+  const panel = document.getElementById('playlistArchivePanel');
+  if(!panel) return;
+  const open = panel.style.display==='none' || !panel.style.display;
+  panel.style.display = open ? 'block' : 'none';
+  if(open) refreshPlaylistArchivePanel();
+}
+async function refreshPlaylistArchivePanel(){
+  const sel = document.getElementById('playlistArchiveDateSelect');
+  const resultsEl = document.getElementById('playlistArchiveResults');
+  if(resultsEl) resultsEl.textContent = 'Chargement de la liste des archives…';
+  const entries = await getPlaylistArchiveList();
+  if(sel){
+    sel.innerHTML = '<option value="">— Charger une archive dans la Playlist —</option>'
+      + entries.map(ts=>`<option value="${ts}">${formatArchiveTimestamp(ts)}</option>`).join('');
+  }
+  if(resultsEl){
+    resultsEl.textContent = entries.length
+      ? entries.length+' archive'+(entries.length>1?'s':'')+' disponible'+(entries.length>1?'s':'')+' — en choisir une la charge dans la Playlist (modifiable ensuite normalement), ou lancez une recherche.'
+      : (DRIVE_SYNC_URL ? 'Aucune Playlist archivée pour l\'instant.' : 'Configurez la synchronisation Drive pour activer les archives.');
+  }
+}
+async function loadPlaylistArchiveByDate(ts){
+  if(!ts) return;
+  const sel = document.getElementById('playlistArchiveDateSelect');
+  const currentCount = playlistTitles.length;
+  const warn = currentCount
+    ? `Charger cette archive va remplacer les ${currentCount} titre(s) actuellement dans la Playlist.\n\nLes modifications non sauvegardées seront perdues.\n\nContinuer ?`
+    : 'Charger cette archive dans la Playlist ?';
+  if(!confirm(warn)){ if(sel) sel.value=''; return; }
+  const resultsEl = document.getElementById('playlistArchiveResults');
+  if(resultsEl) resultsEl.textContent = '⏳ Chargement de l\'archive…';
+  try{
+    const data = await loadPlaylistArchiveData(ts);
+    // Clone profond : ne jamais réutiliser directement les objets du cache d'archive.
+    playlistTitles = JSON.parse(JSON.stringify(data.titles || []));
+    playlistSaveToStorage();
+    if(data.validity){ playlistValidityPeriod = {...data.validity}; playlistValiditySave(); }
+    playlistExpandedKeys = new Set();
+    if(sel) sel.value = '';
+    toggleArchivePanel();
+    updatePlaylistBadge();
+    renderPlaylistPage();
+    showToast('✓ Archive du '+formatArchiveTimestamp(ts)+' chargée dans la Playlist — modifiable normalement','success');
+  }catch(e){
+    if(resultsEl) resultsEl.textContent = 'Erreur de chargement de cette archive : '+(e.message||e);
+  }
+}
+async function searchPlaylistArchives(){
+  const query = (document.getElementById('playlistArchiveSearch').value || '').trim().toLowerCase();
+  const resultsEl = document.getElementById('playlistArchiveResults');
+  if(!query){ refreshPlaylistArchivePanel(); return; }
+  if(resultsEl) resultsEl.textContent = '⏳ Recherche dans les archives…';
+  const entries = (await getPlaylistArchiveList()).slice(0,30);
+  const matches = [];
+  for(const ts of entries){
+    let data;
+    try{ data = await loadPlaylistArchiveData(ts); }catch(e){ continue; }
+    (data.titles||[]).forEach(t=>{
+      const hay = normTxt(t.artist||'')+' '+normTxt(t.title||'');
+      if(hay.includes(normTxt(query))) matches.push({ts, ...t});
+    });
+  }
+  if(!resultsEl) return;
+  if(!matches.length){
+    resultsEl.textContent = 'Aucun résultat pour « '+query+' » dans les '+entries.length+' dernière(s) archive(s).';
+    return;
+  }
+  matches.sort((a,b)=>b.ts.localeCompare(a.ts));
+  resultsEl.innerHTML = `<div style="font-size:11px;color:var(--muted);margin-bottom:6px">${matches.length} résultat${matches.length>1?'s':''} pour « ${escHtml(query)} »</div>` +
+    matches.map(m=>`
+      <div style="display:grid;grid-template-columns:150px 1fr 1fr 60px;gap:8px;padding:5px 8px;border-bottom:1px solid var(--border);font-size:11px;align-items:center">
+        <div style="color:var(--muted)">${formatArchiveTimestamp(m.ts)}</div>
+        <div style="font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escHtml(m.artist)}</div>
+        <div style="color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escHtml(m.title)}</div>
+        <div style="font-weight:800;color:var(--navy)">${escHtml(m.categorie||'—')}</div>
+      </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 // NAVIGATION ENTRE PAGES (Classement / Exclusivités)
 // ═══════════════════════════════════════════════════════════════════════
 function switchPage(page){
@@ -1613,13 +2518,16 @@ function switchPage(page){
   document.getElementById('pageRadio').style.display = page==='radio' ? '' : 'none';
   document.getElementById('pageExcl').style.display = page==='excl' ? '' : 'none';
   document.getElementById('pageYoutube').style.display = page==='yt' ? '' : 'none';
+  document.getElementById('pagePlaylist').style.display = page==='playlist' ? '' : 'none';
   document.getElementById('navBtnRank').classList.toggle('active', page==='rank');
   document.getElementById('navBtnRadio').classList.toggle('active', page==='radio');
   document.getElementById('navBtnExcl').classList.toggle('active', page==='excl');
   document.getElementById('navBtnYt').classList.toggle('active', page==='yt');
+  document.getElementById('navBtnPlaylist').classList.toggle('active', page==='playlist');
   if(page==='radio') renderRadioTable();
   if(page==='excl') renderExclusivePage();
   if(page==='yt') renderYoutubePage();
+  if(page==='playlist') renderPlaylistPage();
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -1688,7 +2596,7 @@ function renderRadioTable(){
     const logoSrc = ownChannelLogoSrc(c);
     thead += `<th class="sortable ${own?'own':''}" title="${escHtml(c)}" onclick="setRadioSort('${escHtml(c).replace(/'/g,"\\'")}')">${logoSrc?('<span class="chlogo-wrap"><img class="chlogo" src="'+logoSrc+'" alt="'+escHtml(c)+'">'+radioSortArrow(c)+'</span>'):escHtml(c)+radioSortArrow(c)}</th>`;
   });
-  thead += `<th class="sortable" onclick="setRadioSort('__indes__')">Indés${radioSortArrow('__indes__')}</th></tr></thead>`;
+  thead += `<th class="sortable" onclick="setRadioSort('__indes__')">Indés${radioSortArrow('__indes__')}</th><th>🎵</th></tr></thead>`;
 
   let tbody = '<tbody>';
   enriched.forEach(({r,indes})=>{
@@ -1713,6 +2621,7 @@ function renderRadioTable(){
       tbody += `<td class="${own?'own':'comp'}">${v!=null?v:'<span class="dim">–</span>'}</td>`;
     });
     tbody += `<td>${indes!=null?'#'+indes:'<span class="dim">–</span>'}</td>`;
+    tbody += `<td>${plMiniButton(r.artist,r.title)}</td>`;
     tbody += `</tr>`;
   });
   tbody += '</tbody>';
@@ -1851,6 +2760,7 @@ function renderYoutubePage(){
 // ═══════════════════════════════════════════════════════════════════════
 renderTable();
 renderRadioTable();
+updatePlaylistBadge();
 updateChartsStatusUI();
 updateDriveSyncStatus();
 if(DRIVE_SYNC_URL) autoLoadLatestWeek();
@@ -1886,6 +2796,7 @@ if(/^https:\/\//i.test(SHAZAM_APPS_SCRIPT_PROXY_URL||'')){
           <button class="tev-nav-btn" onclick="tevNavStep(1)" title="Titre suivant">›</button>
         </div>
         <div id="tevFpaLink"></div>
+        <button id="tevPlaylistBtn" class="tev-share-btn" onclick="togglePlaylistFromModal()" title="Ajouter/retirer ce titre de la Playlist">➕ Playlist</button>
         <button class="tev-share-btn" onclick="toggleTevShareMenu(event)" title="Exporter cette fiche en image ou PDF">🔗 Partager</button>
         <div id="tevShareMenu" class="tev-share-menu" style="display:none">
           <button class="tev-share-item" onclick="exportTevFiche('png')">🖼️ Exporter en PNG</button>
