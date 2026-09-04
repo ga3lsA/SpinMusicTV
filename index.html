@@ -103,7 +103,8 @@ table.smtv td.dim{color:var(--muted)}
 .hist-item .label{font-weight:700;color:var(--navy)}
 .legend{display:flex;gap:14px;align-items:center;font-size:11px;color:var(--text2);flex-wrap:wrap}
 .week-banner{display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--cyan-light) 0%,#fff 100%);border:1.5px solid var(--cyan-mid);border-radius:12px;padding:12px 18px;margin-bottom:16px}
-.week-banner .wb-icon{font-size:22px;flex-shrink:0}
+.week-banner .wb-icon{font-size:22px;flex-shrink:0;display:flex;align-items:center}
+.week-banner .wb-icon img{height:26px;width:auto;display:block}
 .week-banner .wb-text{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--navy);letter-spacing:.01em}
 .week-banner .wb-text .wb-num{color:#007B87}
 .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
@@ -133,7 +134,9 @@ table.smtv td.dim{color:var(--muted)}
 /* Modale Full Song Metrics */
 .tev-overlay{position:fixed;inset:0;background:rgba(11,29,58,.6);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
 .tev-modal{background:#fff;border-radius:16px;max-width:920px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-md)}
-.tev-head{position:sticky;top:0;background:#fff;padding:18px 22px;border-bottom:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;z-index:2;border-radius:16px 16px 0 0}
+.tev-head{position:sticky;top:0;background:#fff;padding:18px 22px;border-bottom:1.5px solid var(--border);display:flex;flex-direction:column;z-index:2;border-radius:16px 16px 0 0}
+.tev-head-row{display:flex;justify-content:space-between;align-items:flex-start;width:100%}
+.tev-eyebrow{text-align:center;font-family:var(--font-display);font-size:19px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;width:100%}
 .tev-title{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--navy)}
 .tev-artist{font-size:12.5px;color:var(--text2);margin-top:2px}
 .tev-close{background:var(--bg);border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:700;color:var(--text2);font-size:14px}
@@ -226,6 +229,7 @@ table.smtv td.dim{color:var(--muted)}
     <button class="hnav-btn" id="navBtnExcl" onclick="switchPage('excl')">🎯 Exclusivités</button>
     <button class="hnav-btn" id="navBtnYt" onclick="switchPage('yt')"><img src="data:image/png;base64,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" alt="YouTube" style="height:14px;vertical-align:-2px;margin-right:2px"> YouTube FR</button>
     <button class="hnav-btn" id="navBtnPlaylist" onclick="switchPage('playlist')">🎵 Playlist</button>
+    <button class="hnav-btn" id="navBtnProg" onclick="switchPage('prog')">🎶 Programmation</button>
   </nav>
   <span id="periodBadge" style="display:none"></span>
   <div class="spacer"></div>
@@ -399,6 +403,72 @@ table.smtv td.dim{color:var(--muted)}
     <datalist id="plCatSuggestions">
       <option value="P1"><option value="A1"><option value="H1"><option value="B1"><option value="C1"><option value="N1"><option value="H2">
     </datalist>
+  </div>
+
+
+  <div class="card" id="pageProg" style="display:none">
+    <div id="weekBannerProg" style="display:none"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap">
+      <div class="section-label" style="margin-bottom:0">🎶 Programmation Musicale — <span id="progStationLabel">CStar</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <select id="progStationSelect" onchange="switchProgStation(this.value)" style="padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:12px;font-family:inherit;font-weight:700">
+          <option value="CSTAR">CStar</option>
+          <option value="EUROPE2POPTV">Europe 2 Pop TV</option>
+        </select>
+        <label class="filebtn" style="margin:0">📂 Importer le fichier hebdo<input type="file" accept=".xlsx,.xls" style="display:none" onchange="handleProgImport(this.files[0])"></label>
+        <button class="btn-ghost" onclick="toggleProgArchivePanel()">🗄️ Archives</button>
+      </div>
+    </div>
+
+    <div id="progStatsRow" class="import-grid" style="display:none;margin-bottom:16px">
+      <div class="import-card loaded" style="text-align:center">
+        <div style="font-size:26px;font-weight:800;color:var(--navy);font-family:var(--font-display)" id="progStatTitres">–</div>
+        <div class="ic-desc" style="margin:0">titres différents diffusés</div>
+      </div>
+      <div class="import-card loaded" style="text-align:center">
+        <div style="font-size:26px;font-weight:800;color:var(--navy);font-family:var(--font-display)" id="progStatArtistes">–</div>
+        <div class="ic-desc" style="margin:0">artistes différents</div>
+      </div>
+      <div class="import-card loaded" style="text-align:center">
+        <div style="font-size:26px;font-weight:800;color:var(--navy);font-family:var(--font-display)" id="progStatDiffs">–</div>
+        <div class="ic-desc" style="margin:0">diffusions au total</div>
+      </div>
+    </div>
+
+    <div id="progWeekConfirmBar" style="display:none;padding:12px 16px;background:var(--orange-bg);border:1.5px solid var(--orange-border);border-radius:10px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--orange-text);margin-bottom:8px">⚠️ Aucune date n'a pu être détectée automatiquement dans ce fichier — confirmez la semaine avant de sauvegarder sur Drive :</div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <label style="font-size:11px;color:var(--text2);display:flex;align-items:center;gap:5px">N° de semaine
+          <input id="progWeekLabelInput" type="text" placeholder="S29" style="width:60px;font-size:11.5px;padding:5px 8px;border-radius:6px;border:1.5px solid var(--border)">
+        </label>
+        <label style="font-size:11px;color:var(--text2);display:flex;align-items:center;gap:5px">du
+          <input id="progWeekStartInput" type="date" style="font-size:11.5px;padding:5px 8px;border-radius:6px;border:1.5px solid var(--border)">
+        </label>
+        <label style="font-size:11px;color:var(--text2);display:flex;align-items:center;gap:5px">au
+          <input id="progWeekEndInput" type="date" style="font-size:11.5px;padding:5px 8px;border-radius:6px;border:1.5px solid var(--border)">
+        </label>
+        <button class="btn-ghost" onclick="confirmProgWeekMeta()">Valider</button>
+      </div>
+    </div>
+
+    <div id="progArchivePanel" style="display:none;padding:16px 18px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;margin-bottom:16px;box-shadow:var(--shadow)">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <select id="progArchiveSelect" style="flex:1;min-width:220px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:12px;font-family:inherit" onchange="loadProgArchiveByWeek(this.value)">
+          <option value="">— Charger une semaine archivée —</option>
+        </select>
+        <button class="btn-primary" onclick="saveProgWeekToDrive()">💾 Sauvegarder cette semaine sur Drive</button>
+      </div>
+      <div id="progArchiveResults" style="font-size:11.5px;color:var(--muted);margin-top:8px">Chargement des semaines archivées…</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <input type="text" id="progSearchBox" placeholder="Rechercher un titre ou artiste…" style="width:240px" oninput="renderProgTable()">
+      <span id="progFileInfo" style="font-size:11px;color:var(--muted)"></span>
+    </div>
+
+    <div style="overflow-x:auto;border-radius:10px">
+      <table class="smtv" id="progTable"></table>
+    </div>
   </div>
 
 </main>
@@ -844,7 +914,7 @@ function formatWeekBanner(period){
   if(wm) return {num: wm[1], range: null};
   return {num: null, range: period};
 }
-function renderWeekBanner(elId, period){
+function renderWeekBanner(elId, period, iconHtml){
   const banner = document.getElementById(elId);
   if(!banner) return;
   const info = formatWeekBanner(period);
@@ -852,7 +922,7 @@ function renderWeekBanner(elId, period){
   const numHtml = info.num ? `Semaine <span class="wb-num">${escHtml(info.num)}</span>` : '';
   const rangeHtml = info.range ? (info.num ? ' — du ' + escHtml(info.range) : escHtml(info.range)) : '';
   banner.className = 'week-banner';
-  banner.innerHTML = `<span class="wb-icon">🗓️</span><span class="wb-text">${numHtml}${rangeHtml}</span>`;
+  banner.innerHTML = `<span class="wb-icon">${iconHtml || '🗓️'}</span><span class="wb-text">${numHtml}${rangeHtml}</span>`;
   banner.style.display = 'flex';
 }
 function updatePeriodBadge(period){
@@ -1405,16 +1475,16 @@ async function loadCoverArt(artist, title){
   try{
     const q = encodeURIComponent(artist+' '+title);
     const res = await fetch('https://itunes.apple.com/search?term='+q+'&entity=song&limit=1');
+    if(!res.ok){ applyCoverArt(null, myToken); return; } // erreur réseau/quota API : jamais mise en cache, on réessaiera au prochain appel
     const data = await res.json();
     let url = null;
     if(data && data.results && data.results[0] && data.results[0].artworkUrl100){
       url = data.results[0].artworkUrl100.replace('100x100bb','600x600bb');
     }
-    __coverArtCache[cacheKey] = url;
+    __coverArtCache[cacheKey] = url; // réponse valide de l'API (avec ou sans pochette trouvée) : mise en cache légitime
     applyCoverArt(url, myToken);
   }catch(e){
-    __coverArtCache[cacheKey] = null;
-    applyCoverArt(null, myToken);
+    applyCoverArt(null, myToken); // erreur réseau : pas de mise en cache, on retentera la prochaine fois
   }
 }
 function applyCoverArt(url, token){
@@ -1568,6 +1638,27 @@ async function openTevByInfo(info){
     ${buildEvoCard('Spotify Weekly France', logoImg(LOGO_SPOTIFY,'Spotify',13), s.spotify, {color:'#1DB954', invert:true, unit:'Rang'})}
     ${buildEvoCard('YouTube France', logoImg(LOGO_YOUTUBE,'YouTube',13), s.youtube, {color:'#FF0000', invert:true, unit:'Rang'})}
   </div></div>`);
+
+  // Song Attributs — un bloc par chaîne suivie en Programmation Musicale (CStar pour l'instant,
+  // Europe 2 Pop TV ensuite) : Genre/Label + tendance Nb Diffs/Rang de cette chaîne.
+  let attrCards = '';
+  for(const stKey of Object.keys(PROG_STATIONS)){
+    const curRow = (stKey===progActiveStation) ? progFindCurrentRow(artist, title) : null;
+    const histS = await getProgHistorySeries(artist, title, stKey);
+    if(!curRow && !histS.diffs.length) continue;
+    if(curRow){
+      attrCards += `<div class="evo-card"><div class="ec-label">🎼 Genre <span style="opacity:.6">(${PROG_STATIONS[stKey].label})</span></div><div class="ec-current" style="font-size:14px">${escHtml(curRow.genre||'—')}</div></div>`;
+      attrCards += `<div class="evo-card"><div class="ec-label">🏷️ Label <span style="opacity:.6">(${PROG_STATIONS[stKey].label})</span></div><div class="ec-current" style="font-size:14px">${escHtml(curRow.label||'—')}</div></div>`;
+    }
+    attrCards += buildEvoCard('Nb Diffs ('+PROG_STATIONS[stKey].label+')', '🎶', histS.diffs, {color:'#E07B00'});
+    attrCards += buildEvoCard('Rang Programmation ('+PROG_STATIONS[stKey].label+')', '📊', histS.rang, {color:'#E07B00', invert:true, unit:'Rang'});
+  }
+  if(attrCards){
+    sections.push(`<div class="tev-panel" style="background:rgba(224,123,0,.06);margin-bottom:0">
+      <div class="tev-panel-title">🎵 Song Attributs</div>
+      <div class="evo-grid">${attrCards}</div>
+    </div>`);
+  }
 
   document.getElementById('tevBody').innerHTML = sections.join('');
 }
@@ -2056,24 +2147,33 @@ function renderPlaylistPage(){
   }).join('');
   listEl.innerHTML = html;
 
-  playlistTitles.forEach(t=>{
-    if(!playlistExpandedKeys.has(t.key)) return;
-    const cacheKey = normTxt(t.artist)+'|||'+normTxt(t.title);
-    if(__coverArtCache[cacheKey]!==undefined){
-      const url = __coverArtCache[cacheKey];
+  // Récupération des pochettes des lignes dépliées — séquentielle et espacée (plutôt qu'en
+  // parallèle) pour ne pas déclencher le quota de l'API iTunes (~20 requêtes/minute), ce qui
+  // avait fini par faire disparaître aussi les pochettes de la fiche Full Song Metrics (cache
+  // partagé). Un échec réseau/quota n'est jamais mis en cache, pour pouvoir réessayer ensuite.
+  (async ()=>{
+    const toFetch = playlistTitles.filter(t=>playlistExpandedKeys.has(t.key));
+    for(const t of toFetch){
+      const cacheKey = normTxt(t.artist)+'|||'+normTxt(t.title);
       const wrap = document.getElementById('plCover-'+t.key);
-      if(wrap && url) wrap.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
-      return;
+      if(__coverArtCache[cacheKey]!==undefined){
+        if(wrap && __coverArtCache[cacheKey]) wrap.innerHTML = `<img src="${__coverArtCache[cacheKey]}" style="width:100%;height:100%;object-fit:cover">`;
+        continue;
+      }
+      try{
+        const r = await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(t.artist+' '+t.title)+'&entity=song&limit=1');
+        if(r.ok){
+          const data = await r.json();
+          let url = null;
+          if(data && data.results && data.results[0] && data.results[0].artworkUrl100) url = data.results[0].artworkUrl100.replace('100x100bb','600x600bb');
+          __coverArtCache[cacheKey] = url;
+          const wrapNow = document.getElementById('plCover-'+t.key);
+          if(wrapNow && url) wrapNow.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+        }
+      }catch(e){ /* pas de mise en cache, on retentera plus tard */ }
+      await new Promise(res=>setTimeout(res,200));
     }
-    fetch('https://itunes.apple.com/search?term='+encodeURIComponent(t.artist+' '+t.title)+'&entity=song&limit=1')
-      .then(r=>r.json()).then(data=>{
-        let url = null;
-        if(data && data.results && data.results[0] && data.results[0].artworkUrl100) url = data.results[0].artworkUrl100.replace('100x100bb','600x600bb');
-        __coverArtCache[cacheKey] = url;
-        const wrap = document.getElementById('plCover-'+t.key);
-        if(wrap && url) wrap.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
-      }).catch(()=>{});
-  });
+  })();
 }
 function playlistShowEmpty(msg){
   const emptyEl = document.getElementById('playlistEmptyBar');
@@ -2511,6 +2611,390 @@ async function searchPlaylistArchives(){
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+// PROGRAMMATION MUSICALE — import du fichier "Zoom média" exhaustif
+// (Muzicast), archivage Drive par semaine (numéro + dates), statistiques
+// en haut de page et alimentation des fiches Full Song Metrics.
+// Architecture volontairement multi-station dès le départ (même si seule
+// CStar est branchée pour l'instant) pour ajouter Europe 2 Pop TV plus
+// tard sans tout reprendre.
+// ═══════════════════════════════════════════════════════════════════════
+const PROG_STATIONS = { CSTAR: { label:'CStar', driveKey:'CSTAR' }, EUROPE2POPTV: { label:'Europe 2 Pop TV', driveKey:'EUROPE2POPTV' } };
+let progActiveStation = 'CSTAR';
+let progRows = [];
+let progMeta = null; // {station, weekLabel, weekStart, weekEnd, fileName, savedAt}
+
+function progCurrentStorageKey(station){ return 'smtv_prog_current_'+station; }
+function progSaveCurrentToLocal(){
+  try{ localStorage.setItem(progCurrentStorageKey(progActiveStation), JSON.stringify({meta:progMeta, rows:progRows})); }catch(e){ /* quota, ignoré */ }
+}
+function progLoadCurrentFromLocal(station){
+  try{
+    const raw = localStorage.getItem(progCurrentStorageKey(station));
+    if(!raw) return null;
+    return JSON.parse(raw);
+  }catch(e){ return null; }
+}
+
+// ── Parseur du fichier Zoom média (feuille "TOP 40", qui malgré son nom liste
+// TOUS les titres diffusés dans la semaine — pas seulement 40) ──
+function progParseNum(v){
+  if(v==null || v==='') return null;
+  const n = parseFloat(String(v).replace(',','.'));
+  return isNaN(n) ? null : n;
+}
+function progParseDMY(str){
+  const m = String(str||'').match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if(!m) return null;
+  return m[3]+'-'+m[2]+'-'+m[1];
+}
+function progExtractPeriodFromSheet(raw){
+  const text = raw.slice(0,20).map(r=>(r||[]).filter(v=>v!=null).join(' ')).join(' \n ');
+  const rangeMatch = text.match(/(\d{2}\/\d{2}\/\d{4})[^\d]{1,15}(\d{2}\/\d{2}\/\d{4})/);
+  if(rangeMatch){
+    const d1 = progParseDMY(rangeMatch[1]), d2 = progParseDMY(rangeMatch[2]);
+    if(d1 && d2) return {weekStart:d1, weekEnd:d2, weekLabel:null};
+  }
+  const wkMatch = text.match(/s(?:emaine)?\s*n?°?\s*[:\-]?\s*(\d{1,2})(?!\d)/i);
+  if(wkMatch){
+    const wk = parseInt(wkMatch[1],10);
+    if(wk>=1 && wk<=53) return {weekLabel:'S'+wk, weekStart:null, weekEnd:null};
+  }
+  return null;
+}
+function parseProgWorkbook(arrayBuffer, fileName){
+  const wb = XLSX.read(arrayBuffer, {type:'array'});
+  const sheetName = wb.SheetNames.find(n=>/TOP\s*40/i.test(n)) || wb.SheetNames[0];
+  const ws = wb.Sheets[sheetName];
+  const raw = XLSX.utils.sheet_to_json(ws, {header:1, defval:null});
+
+  let headerIdx = -1;
+  for(let i=0;i<raw.length;i++){
+    const row = (raw[i]||[]).map(c=>(c==null?'':String(c)).trim().toLowerCase());
+    if(row.includes('rg') && row.includes('titre')){ headerIdx = i; break; }
+  }
+  if(headerIdx===-1) return {error:'En-têtes Rg/Titre introuvables dans la feuille « '+sheetName+' ».'};
+
+  const headers = raw[headerIdx].map(c=>(c==null?'':String(c)).trim());
+  const colIdx = name => headers.findIndex(h=>h.toLowerCase()===name.toLowerCase());
+  const cRg=colIdx('Rg'), cEvo=colIdx('Evo'), cRg1=colIdx('Rg-1'),
+        cArtiste=colIdx('Artiste'), cTitre=colIdx('Titre'), cGenre=colIdx('Genre'), cLabel=colIdx('Label'),
+        cAud=colIdx('Aud. Totale'), cDiffs=colIdx('Nb. Diffs'), cSem=colIdx('Nb. Sem.');
+
+  if(cArtiste===-1 || cTitre===-1 || cDiffs===-1) return {error:'Colonnes Artiste / Titre / Nb. Diffs introuvables dans la feuille « '+sheetName+' ».'};
+
+  const rows = [];
+  for(let i=headerIdx+1;i<raw.length;i++){
+    const r = raw[i];
+    if(!r) continue;
+    const artist = r[cArtiste]!=null ? String(r[cArtiste]).trim() : '';
+    const title  = r[cTitre]!=null ? String(r[cTitre]).trim() : '';
+    if(!artist || !title) continue;
+    const rang = progParseNum(r[cRg]);
+    if(rang==null) continue;
+    const rg1raw = cRg1>=0 ? r[cRg1] : null;
+    rows.push({
+      rang, key: matchKey(artist,title),
+      rangPrec: (rg1raw==='E' || rg1raw==='RE') ? rg1raw : progParseNum(rg1raw),
+      evolution: cEvo>=0 ? progParseNum(r[cEvo]) : null,
+      artist, title,
+      genre: cGenre>=0 && r[cGenre] ? String(r[cGenre]).trim() : '',
+      label: cLabel>=0 && r[cLabel] ? String(r[cLabel]).trim() : '',
+      audTotale: cAud>=0 ? progParseNum(r[cAud]) : null,
+      nbDiffs: cDiffs>=0 ? (progParseNum(r[cDiffs])||0) : 0,
+      nbSem: cSem>=0 ? progParseNum(r[cSem]) : null
+    });
+  }
+  if(!rows.length) return {error:'Aucune ligne exploitable dans la feuille « '+sheetName+' ».'};
+  const period = progExtractPeriodFromSheet(raw);
+  return {sheetName, rows, period, fileName};
+}
+
+function progComputeStats(rows){
+  const artistCounts = {};
+  rows.forEach(r=>{ const k=normTxt(r.artist); artistCounts[k]=(artistCounts[k]||0)+1; });
+  return {
+    nbTitres: rows.length,
+    nbArtistes: Object.keys(artistCounts).length,
+    totalDiffs: rows.reduce((s,r)=>s+(r.nbDiffs||0),0)
+  };
+}
+
+function handleProgImport(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const parsed = parseProgWorkbook(e.target.result, file.name);
+    if(parsed.error){ showToast(parsed.error,'err'); return; }
+    progRows = parsed.rows;
+    const detected = progDetectWeekInfo(parsed.period, file.name);
+    progMeta = { station: progActiveStation, fileName: file.name, ...detected };
+    progSaveCurrentToLocal();
+    renderProgPage();
+    showToast('✓ '+progRows.length+' titres importés pour '+PROG_STATIONS[progActiveStation].label+(detected.detected?' — semaine détectée : '+(detected.weekLabel||'')+'':' — confirmez la semaine ci-dessous'),'success');
+  };
+  reader.readAsArrayBuffer(file);
+}
+function progGuessWeekLabelFromDate(iso){
+  if(!iso) return '';
+  const d = new Date(iso+'T00:00:00');
+  const onejan = new Date(d.getFullYear(),0,1);
+  const wk = Math.ceil((((d-onejan)/86400000)+onejan.getDay()+1)/7);
+  return 'S'+wk;
+}
+function progDetectWeekInfo(period, fileName){
+  if(period){
+    if(period.weekStart && period.weekEnd){
+      return {weekStart:period.weekStart, weekEnd:period.weekEnd, weekLabel:progGuessWeekLabelFromDate(period.weekStart), detected:true};
+    }
+    if(period.weekLabel) return {weekStart:'', weekEnd:'', weekLabel:period.weekLabel, detected:true};
+  }
+  return {weekStart:'', weekEnd:'', weekLabel:'', detected:false};
+}
+function confirmProgWeekMeta(){
+  const label = (document.getElementById('progWeekLabelInput').value||'').trim();
+  const start = document.getElementById('progWeekStartInput').value||'';
+  const end = document.getElementById('progWeekEndInput').value||'';
+  if(!label){ showToast('Indiquez au moins le numéro de semaine','err'); return; }
+  progMeta = {...progMeta, weekLabel: label.toUpperCase().startsWith('S')?label.toUpperCase():('S'+label), weekStart:start, weekEnd:end, detected:true};
+  progSaveCurrentToLocal();
+  renderProgPage();
+  showToast('✓ Semaine confirmée','success');
+}
+function frenchLongDate(iso){
+  if(!iso) return '';
+  const d = new Date(iso+'T00:00:00');
+  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+}
+function progPeriodString(){
+  if(!progMeta || !progMeta.weekLabel) return '';
+  const num = progMeta.weekLabel.replace(/\D/g,'');
+  if(progMeta.weekStart && progMeta.weekEnd) return 'Sem. '+num+' : Du '+frenchLongDate(progMeta.weekStart)+' au '+frenchLongDate(progMeta.weekEnd);
+  return 'Sem. '+num;
+}
+
+function switchProgStation(station){
+  progActiveStation = station;
+  const cached = progLoadCurrentFromLocal(station);
+  progRows = cached ? cached.rows : [];
+  progMeta = cached ? cached.meta : null;
+  renderProgPage();
+}
+
+function renderProgPage(){
+  document.getElementById('progStationLabel').textContent = PROG_STATIONS[progActiveStation].label;
+  const sel = document.getElementById('progStationSelect');
+  if(sel && sel.value!==progActiveStation) sel.value = progActiveStation;
+
+  if(!progRows.length && progMeta===null && !progLoadCurrentFromLocal(progActiveStation) && !__progAutoLoadTried[progActiveStation] && DRIVE_SYNC_URL){
+    __progAutoLoadTried[progActiveStation] = true;
+    autoLoadLatestProgArchive(progActiveStation);
+  }
+
+  const confirmBar = document.getElementById('progWeekConfirmBar');
+  if(progMeta && !progMeta.detected){
+    confirmBar.style.display = 'block';
+    document.getElementById('progWeekLabelInput').value = progMeta.weekLabel||'';
+    document.getElementById('progWeekStartInput').value = progMeta.weekStart||'';
+    document.getElementById('progWeekEndInput').value = progMeta.weekEnd||'';
+  } else {
+    confirmBar.style.display = 'none';
+  }
+
+  const statsRow = document.getElementById('progStatsRow');
+  if(progRows.length){
+    const stats = progComputeStats(progRows);
+    document.getElementById('progStatTitres').textContent = stats.nbTitres;
+    document.getElementById('progStatArtistes').textContent = stats.nbArtistes;
+    document.getElementById('progStatDiffs').textContent = stats.totalDiffs.toLocaleString('fr-FR');
+    statsRow.style.display = '';
+  } else {
+    statsRow.style.display = 'none';
+  }
+
+  const stationLogoSrc = ownChannelLogoSrc(PROG_STATIONS[progActiveStation].label);
+  const stationLogoIcon = stationLogoSrc ? `<img src="${stationLogoSrc}" alt="${escHtml(PROG_STATIONS[progActiveStation].label)}">` : '🗓️';
+  renderWeekBanner('weekBannerProg', progPeriodString(), stationLogoIcon);
+  document.getElementById('progFileInfo').textContent = progMeta && progMeta.fileName ? ('Fichier importé : '+progMeta.fileName) : '';
+
+  renderProgTable();
+  if(document.getElementById('progArchivePanel').style.display!=='none') refreshProgArchivePanel();
+}
+
+function progEvoHtml(r){
+  if(r.rangPrec==='E') return '<span class="evo-up">★ Entrée</span>';
+  if(r.rangPrec==='RE') return '<span class="evo-up">↻ Re-entrée</span>';
+  if(r.evolution==null) return '<span class="evo-flat">—</span>';
+  if(r.evolution>0) return `<span class="evo-up">▲ ${r.evolution}</span>`;
+  if(r.evolution<0) return `<span class="evo-down">▼ ${Math.abs(r.evolution)}</span>`;
+  return '<span class="evo-flat">= </span>';
+}
+function renderProgTable(){
+  const el = document.getElementById('progTable');
+  if(!progRows.length){
+    el.innerHTML = `<tbody><tr><td class="empty-state">Aucune programmation chargée pour ${PROG_STATIONS[progActiveStation].label}.<br>Importez le fichier « Zoom média » exhaustif de la semaine via 📂 Importer le fichier hebdo ci-dessus.</td></tr></tbody>`;
+    return;
+  }
+  const q = normTxt(document.getElementById('progSearchBox').value);
+  let rows = progRows.slice().sort((a,b)=>a.rang-b.rang);
+  if(q) rows = rows.filter(r=>normTxt(r.title).includes(q) || normTxt(r.artist).includes(q));
+
+  let thead = `<thead><tr>
+    <th>Rg</th><th>Évo.</th><th class="col-title">Titre / Artiste</th><th>Genre</th><th>Label</th><th>Nb Diffs</th><th>Nb Sem.</th><th>🎵</th></tr></thead>`;
+  let tbody = '<tbody>';
+  rows.forEach(r=>{
+    tbody += `<tr>
+      <td class="rank-cell">${r.rang}</td>
+      <td>${progEvoHtml(r)}</td>
+      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(r.title)}</div><div class="a">${escHtml(r.artist)}</div></td>
+      <td style="font-size:11px;color:var(--text2)">${escHtml(r.genre)||'<span class="dim">–</span>'}</td>
+      <td style="font-size:11px;color:var(--text2)">${escHtml(r.label)||'<span class="dim">–</span>'}</td>
+      <td class="own" style="font-weight:800">${r.nbDiffs}</td>
+      <td>${r.nbSem!=null?r.nbSem:'<span class="dim">–</span>'}</td>
+      <td>${plMiniButton(r.artist,r.title)}</td>
+    </tr>`;
+  });
+  tbody += '</tbody>';
+  el.innerHTML = thead + tbody;
+}
+
+// ── Archivage Drive (payload complet par semaine + petit index par station) ──
+function progArchiveKey(station, weekLabel){ return 'smtv_prog_'+station+'_'+String(weekLabel||'').replace(/[^A-Za-z0-9_-]/g,'_'); }
+function progIndexKey(station){ return 'smtv_prog_index_'+station; }
+const progArchiveIndexCache = {};
+async function loadProgArchiveIndex(station, force){
+  if(!force && progArchiveIndexCache[station]) return progArchiveIndexCache[station];
+  if(!DRIVE_SYNC_URL) return [];
+  try{
+    const r = await driveCall('load', progIndexKey(station));
+    const list = JSON.parse(r.data);
+    progArchiveIndexCache[station] = Array.isArray(list) ? list : [];
+  }catch(e){
+    progArchiveIndexCache[station] = [];
+  }
+  return progArchiveIndexCache[station];
+}
+async function saveProgWeekToDrive(){
+  if(!progRows.length){ showToast('Importez d\'abord un fichier','err'); return; }
+  if(!progMeta || !progMeta.weekLabel){ showToast('Confirmez le numéro de semaine avant de sauvegarder','err'); return; }
+  if(!DRIVE_SYNC_URL){ showToast('Configurez d\'abord la synchronisation Drive (☁️ Drive)','err'); toggleDriveSyncPanel(); return; }
+  const station = progActiveStation, weekLabel = progMeta.weekLabel;
+  const payload = { station, weekLabel, weekStart:progMeta.weekStart||'', weekEnd:progMeta.weekEnd||'',
+    fileName:progMeta.fileName||'', savedAt:new Date().toISOString(), stats:progComputeStats(progRows), rows:progRows };
+  const resultsEl = document.getElementById('progArchiveResults');
+  try{
+    showToast('⏳ Sauvegarde de la programmation en cours…','success');
+    await driveCall('save', progArchiveKey(station,weekLabel), JSON.stringify(payload), {
+      onProgress:(done,total)=>{ if(resultsEl) resultsEl.textContent = '⏳ Sauvegarde… '+Math.round(done/total*100)+'%'; }
+    });
+    const idx = await loadProgArchiveIndex(station, true);
+    const entry = {weekLabel, weekStart:payload.weekStart, weekEnd:payload.weekEnd, savedAt:payload.savedAt, stats:payload.stats};
+    const existingIdx = idx.findIndex(e=>e.weekLabel===weekLabel);
+    if(existingIdx>=0) idx[existingIdx]=entry; else idx.push(entry);
+    idx.sort((a,b)=>a.weekLabel.localeCompare(b.weekLabel, undefined, {numeric:true}));
+    await driveCall('save', progIndexKey(station), JSON.stringify(idx));
+    progArchiveIndexCache[station] = idx;
+    // Vérification réelle, comme pour les autres archivages Drive de l'outil.
+    const r = await driveCall('load', progIndexKey(station));
+    const freshIdx = JSON.parse(r.data);
+    if(!freshIdx.some(e=>e.weekLabel===weekLabel)){
+      showToast('⚠️ La sauvegarde semble avoir échoué silencieusement — réessayez.','err');
+      return;
+    }
+    showToast('✓ Semaine '+weekLabel+' ('+PROG_STATIONS[station].label+') archivée et vérifiée sur Drive','success');
+    if(document.getElementById('progArchivePanel').style.display!=='none') refreshProgArchivePanel();
+  }catch(e){
+    showToast('Échec de la sauvegarde · '+(e.message||e),'err');
+  }
+}
+async function toggleProgArchivePanel(){
+  const panel = document.getElementById('progArchivePanel');
+  const open = panel.style.display==='none' || !panel.style.display;
+  panel.style.display = open ? 'block' : 'none';
+  if(open) refreshProgArchivePanel();
+}
+async function refreshProgArchivePanel(){
+  const sel = document.getElementById('progArchiveSelect');
+  const resultsEl = document.getElementById('progArchiveResults');
+  if(resultsEl) resultsEl.textContent = 'Chargement des semaines archivées…';
+  const idx = await loadProgArchiveIndex(progActiveStation);
+  if(sel){
+    sel.innerHTML = '<option value="">— Charger une semaine archivée —</option>'
+      + idx.slice().reverse().map(e=>{
+          const range = (e.weekStart && e.weekEnd) ? (' ('+formatDateFr(e.weekStart)+' au '+formatDateFr(e.weekEnd)+')') : '';
+          return `<option value="${e.weekLabel}">${e.weekLabel}${range}</option>`;
+        }).join('');
+  }
+  if(resultsEl){
+    resultsEl.textContent = idx.length
+      ? idx.length+' semaine'+(idx.length>1?'s':'')+' archivée'+(idx.length>1?'s':'')+' pour '+PROG_STATIONS[progActiveStation].label
+      : (DRIVE_SYNC_URL ? 'Aucune semaine archivée pour l\'instant.' : 'Configurez la synchronisation Drive pour activer les archives.');
+  }
+}
+async function loadProgArchiveByWeek(weekLabel){
+  if(!weekLabel) return;
+  try{
+    const r = await driveCall('load', progArchiveKey(progActiveStation, weekLabel));
+    const data = JSON.parse(r.data);
+    progRows = data.rows||[];
+    progMeta = {station:progActiveStation, weekLabel:data.weekLabel, weekStart:data.weekStart, weekEnd:data.weekEnd, fileName:data.fileName, detected:true};
+    progSaveCurrentToLocal();
+    renderProgPage();
+    showToast('✓ Semaine '+weekLabel+' chargée ('+PROG_STATIONS[progActiveStation].label+')','success');
+  }catch(e){
+    showToast('Erreur de chargement · '+(e.message||e),'err');
+  }
+}
+const __progAutoLoadTried = {};
+async function autoLoadLatestProgArchive(station){
+  const idx = await loadProgArchiveIndex(station);
+  if(!idx.length) return;
+  const latest = idx[idx.length-1];
+  await loadProgArchiveByWeek(latest.weekLabel);
+}
+
+// ── Historique multi-semaines pour la fiche Full Song Metrics ──
+const progWeekPayloadCache = {};
+async function fetchProgWeekPayload(station, weekLabel){
+  const ck = station+'|||'+weekLabel;
+  if(progWeekPayloadCache[ck]) return progWeekPayloadCache[ck];
+  try{
+    const r = await driveCall('load', progArchiveKey(station, weekLabel));
+    const data = JSON.parse(r.data);
+    progWeekPayloadCache[ck] = data;
+    return data;
+  }catch(e){ return null; }
+}
+async function getProgHistorySeries(artist, title, station){
+  const result = { diffs:[], rang:[] };
+  if(DRIVE_SYNC_URL){
+    const idx = (await loadProgArchiveIndex(station)).slice(-20);
+    for(const e of idx){
+      const data = await fetchProgWeekPayload(station, e.weekLabel);
+      if(!data || !data.rows) continue;
+      const row = data.rows.find(r=>r.key===matchKey(artist,title)) || data.rows.find(r=>normTxt(r.title)===normTxt(title));
+      if(!row) continue;
+      const point = {date:e.savedAt, label:e.weekLabel};
+      result.diffs.push({...point, val:row.nbDiffs});
+      if(row.rang!=null) result.rang.push({...point, val:row.rang});
+    }
+  }
+  // Semaine en cours (éventuellement pas encore archivée)
+  if(progActiveStation===station && progRows.length){
+    const row = progRows.find(r=>r.key===matchKey(artist,title)) || progRows.find(r=>normTxt(r.title)===normTxt(title));
+    if(row){
+      const point = {date:new Date().toISOString(), label: progMeta && progMeta.weekLabel ? progMeta.weekLabel : "Aujourd'hui"};
+      result.diffs.push({...point, val:row.nbDiffs});
+      if(row.rang!=null) result.rang.push({...point, val:row.rang});
+    }
+  }
+  return result;
+}
+function progFindCurrentRow(artist, title){
+  if(!progRows.length) return null;
+  return progRows.find(r=>r.key===matchKey(artist,title)) || progRows.find(r=>normTxt(r.title)===normTxt(title)) || null;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 // NAVIGATION ENTRE PAGES (Classement / Exclusivités)
 // ═══════════════════════════════════════════════════════════════════════
 function switchPage(page){
@@ -2519,15 +3003,18 @@ function switchPage(page){
   document.getElementById('pageExcl').style.display = page==='excl' ? '' : 'none';
   document.getElementById('pageYoutube').style.display = page==='yt' ? '' : 'none';
   document.getElementById('pagePlaylist').style.display = page==='playlist' ? '' : 'none';
+  document.getElementById('pageProg').style.display = page==='prog' ? '' : 'none';
   document.getElementById('navBtnRank').classList.toggle('active', page==='rank');
   document.getElementById('navBtnRadio').classList.toggle('active', page==='radio');
   document.getElementById('navBtnExcl').classList.toggle('active', page==='excl');
   document.getElementById('navBtnYt').classList.toggle('active', page==='yt');
   document.getElementById('navBtnPlaylist').classList.toggle('active', page==='playlist');
+  document.getElementById('navBtnProg').classList.toggle('active', page==='prog');
   if(page==='radio') renderRadioTable();
   if(page==='excl') renderExclusivePage();
   if(page==='yt') renderYoutubePage();
   if(page==='playlist') renderPlaylistPage();
+  if(page==='prog') renderProgPage();
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -2773,11 +3260,17 @@ if(/^https:\/\//i.test(KWORB_APPS_SCRIPT_PROXY_URL||'')){
 if(/^https:\/\//i.test(SHAZAM_APPS_SCRIPT_PROXY_URL||'')){
   loadShazamFrance();
 }
+// Le panneau d'import reste replié par défaut, quel que soit ce qui se charge au démarrage
+// (y compris la restauration automatique de la dernière semaine depuis Drive) — évite qu'il
+// prenne de la place en haut de page tant que l'utilisateur ne clique pas sur "📂 Import".
+document.getElementById('importPanelWrap').style.display = 'none';
 </script>
 
 <div id="modalTitleEvolution" class="tev-overlay" onclick="closeTitleEvolutionModal(event)" style="display:none">
   <div class="tev-modal" id="tevCard">
     <div class="tev-head" id="tevHeader">
+      <div class="tev-eyebrow">📈 Song Metrics</div>
+      <div class="tev-head-row">
       <div style="display:flex;align-items:center;gap:14px;min-width:0">
         <div class="tev-cover-wrap">
           <img id="tevCover" class="tev-cover" style="display:none" alt="">
@@ -2803,6 +3296,7 @@ if(/^https:\/\//i.test(SHAZAM_APPS_SCRIPT_PROXY_URL||'')){
           <button class="tev-share-item" onclick="exportTevFiche('pdf')">📄 Exporter en PDF</button>
         </div>
         <button class="tev-close" onclick="closeTitleEvolutionModal()">✕</button>
+      </div>
       </div>
     </div>
     <div class="tev-body" id="tevBody"></div>
