@@ -187,6 +187,16 @@ table.smtv td.dim{color:var(--muted)}
 .pl-quota-FR{background:#EAF2FF;color:#1355A8}
 .pl-quota-EU{background:#FFF4E0;color:#B05E00}
 .pl-quota-US{background:#FDEBEA;color:#C4302B}
+.pl-row input.pl-text-input{text-align:left;border-color:transparent;background:transparent;padding:4px 6px;text-overflow:ellipsis}
+.pl-row input.pl-text-input:hover{border-color:var(--border);background:var(--white)}
+.pl-row input.pl-text-input:focus{border-color:var(--cyan);background:var(--white);outline:none}
+.pl-row input.pl-artist-input{font-weight:700;color:var(--navy)}
+.pl-row input.pl-title-input{color:var(--text2)}
+.pl-match{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;line-height:1;border:1.5px solid transparent;padding:0;font-family:inherit}
+.pl-match-ok{background:#E6F6EC;border-color:#A8DDB9;color:#1E7A3C;cursor:default}
+.pl-match-fix{background:#FFF4E0;border-color:#F2C77B;color:#B05E00;cursor:pointer}
+.pl-match-fix:hover{background:#FFE6B8}
+.pl-match-none{background:var(--bg);border-color:var(--border);color:var(--muted);cursor:default}
 .pl-remove-btn{width:20px;height:20px;border-radius:5px;background:#FFEAEA;border:1px solid #F5B8B8;color:#CC2222;cursor:pointer;font-size:11px;line-height:1;padding:0}
 .pl-mini-btn{width:22px;height:22px;border-radius:6px;background:var(--white);border:1.5px solid var(--border);color:var(--muted);cursor:pointer;font-size:12px;font-weight:800;line-height:1;padding:0}
 .pl-mini-btn:hover{border-color:var(--cyan);color:var(--cyan)}
@@ -352,6 +362,7 @@ table.smtv td.dim{color:var(--muted)}
         <button class="btn-primary" onclick="savePlaylistArchive()">💾 Sauvegarder sur Drive</button>
         <button class="btn-ghost" onclick="exportPlaylistPDF()">📄 PDF</button>
         <button class="btn-ghost" onclick="exportPlaylistExcel()">📊 Excel</button>
+        <button class="btn-ghost" id="playlistAlignAllBtn" onclick="alignAllPlaylistTitles()" title="Remplace l'artiste et le titre de chaque ligne à corriger par l'orthographe exacte de la plateforme">🔗 Tout aligner sur la plateforme</button>
         <button class="btn-ghost" style="background:#FFEAEA;border-color:#F5B8B8;color:#CC2222" onclick="clearPlaylist()">Tout retirer</button>
       </div>
     </div>
@@ -396,10 +407,13 @@ table.smtv td.dim{color:var(--muted)}
 
     <div style="font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.6">
       Cliquez sur « ➕ Playlist » dans la fiche <strong>Full Song Metrics</strong> d'un titre (Classements TV, Radio, Exclusivités ou YouTube FR) pour l'ajouter ici — ou ajoutez-le manuellement ci-dessus. Renseignez pour chaque titre sa <strong>Catégorie</strong> (glisser-déposer possible entre groupes), son <strong>Quota</strong> (FR/EU/US), sa <strong>Date d'Entrée</strong> et son <strong>Label</strong>. Les colonnes <strong>Passages TV</strong> et <strong>Passages Radio</strong> reprennent le total de la semaine en cours, à titre indicatif. Cliquez sur le badge d'une catégorie pour l'exclure — ou la réintégrer — du PDF/Excel exporté.
+      <strong>Artiste</strong> et <strong>Titre</strong> sont modifiables directement (clic dans la cellule, avec suggestions de la plateforme). La pastille à droite du titre indique la correspondance avec la plateforme : <span style="color:#1E7A3C;font-weight:700">✓</span> identique, <span style="color:#B05E00;font-weight:700">⇄</span> écriture différente — cliquez pour l'aligner, <span style="color:var(--muted);font-weight:700">?</span> introuvable cette semaine.
     </div>
 
     <div id="playlistEmptyBar" style="display:none;padding:24px;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;font-size:13px;color:var(--text2);text-align:center"></div>
     <div id="playlistList"></div>
+    <datalist id="plArtistSuggestions"></datalist>
+    <datalist id="plTitleSuggestions"></datalist>
     <datalist id="plCatSuggestions">
       <option value="P1"><option value="A1"><option value="H1"><option value="B1"><option value="C1"><option value="N1"><option value="H2">
     </datalist>
@@ -1972,6 +1986,113 @@ function updatePlaylistField(key, field, value){
   if(field==='categorie') renderPlaylistPage();
 }
 
+// ── Édition Artiste / Titre + alignement sur la plateforme ──
+// Modifier l'artiste ou le titre recalcule la clé de correspondance : les colonnes
+// TV / Radio, la fiche Full Song Metrics et les boutons +/✓ des classements
+// retrouvent alors le titre sous sa nouvelle écriture.
+function renamePlaylistTitle(oldKey, field, value){
+  const t = playlistTitles.find(x=>x.key===oldKey);
+  if(!t) return;
+  const v = (value||'').replace(/\s+/g,' ').trim();
+  if(!v){ showToast(field==='artist'?"L'artiste ne peut pas être vide":'Le titre ne peut pas être vide','err'); renderPlaylistPage(); return; }
+  const artist = field==='artist' ? v : t.artist;
+  const title  = field==='title'  ? v : t.title;
+  applyPlaylistRename(t, artist, title);
+}
+function applyPlaylistRename(t, artist, title, opts={}){
+  const newKey = matchKey(artist, title);
+  if(newKey!==t.key && playlistTitles.some(x=>x!==t && x.key===newKey)){
+    if(!opts.silent) showToast('« '+title+' » de '+artist+' est déjà dans la Playlist','err');
+    if(!opts.noRender) renderPlaylistPage();
+    return false;
+  }
+  if(playlistExpandedKeys.has(t.key)){ playlistExpandedKeys.delete(t.key); playlistExpandedKeys.add(newKey); }
+  t.artist = artist; t.title = title; t.key = newKey;
+  playlistSaveToStorage();
+  if(!opts.noRender) renderPlaylistPage();
+  return true;
+}
+// Sources de la plateforme : classements TV, Radio et Exclusivités (station active).
+function playlistPlatformSources(){
+  const src = [];
+  if(tvParsed && tvParsed.rows && tvParsed.rows.length) src.push(tvParsed);
+  if(radioParsed && radioParsed.rows && radioParsed.rows.length) src.push(radioParsed);
+  if(typeof progRows!=='undefined' && progRows && progRows.length) src.push({rows:progRows});
+  return src;
+}
+// status : 'ok' (écriture identique), 'fix' (correspondance trouvée mais écrite autrement),
+// 'none' (introuvable), 'nodata' (aucun classement chargé).
+function playlistPlatformMatch(t){
+  const sources = playlistPlatformSources();
+  if(!sources.length) return {status:'nodata'};
+  for(const s of sources){
+    const r = s.rows.find(r=>r.artist===t.artist && r.title===t.title);
+    if(r) return {status:'ok', row:r};
+  }
+  for(const s of sources){
+    const r = s.rows.find(r=>r.key===t.key);
+    if(r) return {status:'fix', row:r, sure:true};
+  }
+  for(const s of sources){
+    const r = findRowInParsed(s, t.artist, t.title);
+    if(r) return {status:'fix', row:r, sure:false};
+  }
+  return {status:'none'};
+}
+function playlistMatchBadge(t){
+  const m = playlistPlatformMatch(t);
+  if(m.status==='nodata') return '';
+  if(m.status==='ok') return `<span class="pl-match pl-match-ok" title="Identique à la plateforme">✓</span>`;
+  if(m.status==='none') return `<span class="pl-match pl-match-none" title="Introuvable dans les classements chargés cette semaine">?</span>`;
+  const tip = (m.sure ? 'Écriture différente' : 'Correspondance probable (à vérifier)')
+    + ' — plateforme : ' + m.row.artist + ' – ' + m.row.title + '\nCliquer pour aligner';
+  return `<button class="pl-match pl-match-fix" onclick="event.stopPropagation();alignPlaylistTitle('${t.key}')" title="${escHtml(tip)}">⇄</button>`;
+}
+function alignPlaylistTitle(key){
+  const t = playlistTitles.find(x=>x.key===key);
+  if(!t) return;
+  const m = playlistPlatformMatch(t);
+  if(m.status!=='fix') return;
+  if(applyPlaylistRename(t, m.row.artist, m.row.title)) showToast('✓ Aligné : '+m.row.artist+' – '+m.row.title,'success');
+}
+function alignAllPlaylistTitles(){
+  const todo = playlistTitles.map(t=>({t, m:playlistPlatformMatch(t)})).filter(x=>x.m.status==='fix');
+  if(!playlistPlatformSources().length){ showToast('Aucun classement chargé : impossible de comparer avec la plateforme','err'); return; }
+  if(!todo.length){ showToast('✓ Tous les titres trouvés sont déjà identiques à la plateforme','success'); return; }
+  const preview = todo.slice(0,15).map(x=>'• '+x.t.artist+' – '+x.t.title+'\n   → '+x.m.row.artist+' – '+x.m.row.title+(x.m.sure?'':'  (probable)')).join('\n');
+  if(!confirm('Aligner '+todo.length+' titre(s) sur la plateforme ?\n\n'+preview+(todo.length>15?'\n… et '+(todo.length-15)+' autre(s)':''))) return;
+  let done=0, skipped=0;
+  todo.forEach(x=>{ if(applyPlaylistRename(x.t, x.m.row.artist, x.m.row.title, {silent:true, noRender:true})) done++; else skipped++; });
+  renderPlaylistPage();
+  showToast('✓ '+done+' titre(s) aligné(s)'+(skipped?' — '+skipped+' ignoré(s) (doublon dans la Playlist)':''), skipped?'err':'success');
+}
+function updatePlaylistAlignAllBtn(){
+  const btn = document.getElementById('playlistAlignAllBtn');
+  if(!btn) return;
+  const n = playlistTitles.filter(t=>playlistPlatformMatch(t).status==='fix').length;
+  btn.textContent = '🔗 Tout aligner sur la plateforme' + (n?' ('+n+')':'');
+  btn.disabled = !n;
+  btn.style.opacity = n ? '1' : '.5';
+}
+// Suggestions (autocomplétion) des champs Artiste / Titre à partir des classements chargés.
+let __plSuggestSig = '';
+function refreshPlaylistSuggestions(){
+  const sources = playlistPlatformSources();
+  const sig = sources.map(s=>s.rows.length+':'+(s.rows[0]?s.rows[0].key:'')).join('|');
+  if(sig===__plSuggestSig) return;
+  __plSuggestSig = sig;
+  const artists = new Map(), titles = new Map();
+  sources.forEach(s=>s.rows.forEach(r=>{
+    if(r.artist && !artists.has(r.artist)) artists.set(r.artist, true);
+    const tk = r.title+'|||'+r.artist;
+    if(r.title && !titles.has(tk)) titles.set(tk, {title:r.title, artist:r.artist});
+  }));
+  const aEl = document.getElementById('plArtistSuggestions');
+  const tEl = document.getElementById('plTitleSuggestions');
+  if(aEl) aEl.innerHTML = [...artists.keys()].sort((a,b)=>a.localeCompare(b)).map(a=>`<option value="${escHtml(a)}">`).join('');
+  if(tEl) tEl.innerHTML = [...titles.values()].sort((a,b)=>a.title.localeCompare(b.title)).map(x=>`<option value="${escHtml(x.title)}" label="${escHtml(x.artist)}">`).join('');
+}
+
 // ── Import Excel : Label / Date d'Entrée / Quota vers les titres déjà présents ──
 const PLAYLIST_EXPORT_EXCLUDED_KEY = 'smtv_playlist_export_excluded_cats';
 let playlistExportExcludedCats = (function(){ try{ return JSON.parse(localStorage.getItem(PLAYLIST_EXPORT_EXCLUDED_KEY)||'[]'); }catch(e){ return []; } })();
@@ -2041,7 +2162,7 @@ function togglePlaylistExpand(key){
   if(playlistExpandedKeys.has(key)) playlistExpandedKeys.delete(key); else playlistExpandedKeys.add(key);
   renderPlaylistPage();
 }
-const PLAYLIST_ROW_GRID = '22px 150px 190px 56px 56px 60px 54px 54px 112px 130px 24px';
+const PLAYLIST_ROW_GRID = '22px 150px 190px 28px 56px 56px 60px 54px 54px 112px 130px 24px';
 function buildPlaylistRow(t){
   const expanded = playlistExpandedKeys.has(t.key);
   const catNorm = (t.categorie||'').toUpperCase().trim();
@@ -2057,8 +2178,19 @@ function buildPlaylistRow(t){
     <div style="padding:7px 0 7px 8px;cursor:pointer" onclick="togglePlaylistExpand('${t.key}')" title="${expanded?'Réduire':'Voir la pochette et la fiche'}">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);transition:transform .15s;transform:rotate(${expanded?90:0}deg)"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
-    <div style="padding:7px 6px;font-size:11.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${escHtml(t.artist)}">${escHtml(t.artist)}</div>
-    <div style="padding:7px 6px;font-size:11.5px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${escHtml(t.title)}">${escHtml(t.title)}</div>
+    <div style="padding:3px 2px 3px 4px">
+      <input type="text" class="pl-text-input pl-artist-input" list="plArtistSuggestions" value="${escHtml(t.artist)}" title="${escHtml(t.artist)} — cliquer pour modifier" draggable="false"
+        onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true"
+        onkeydown="if(event.key==='Enter') this.blur(); else if(event.key==='Escape'){ this.value=this.defaultValue; this.blur(); }"
+        onchange="renamePlaylistTitle('${t.key}','artist',this.value)">
+    </div>
+    <div style="padding:3px 2px">
+      <input type="text" class="pl-text-input pl-title-input" list="plTitleSuggestions" value="${escHtml(t.title)}" title="${escHtml(t.title)} — cliquer pour modifier" draggable="false"
+        onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true"
+        onkeydown="if(event.key==='Enter') this.blur(); else if(event.key==='Escape'){ this.value=this.defaultValue; this.blur(); }"
+        onchange="renamePlaylistTitle('${t.key}','title',this.value)">
+    </div>
+    <div style="padding:4px 2px;text-align:center">${playlistMatchBadge(t)}</div>
     <div style="padding:4px">
       <input type="text" class="pl-cat-input" list="plCatSuggestions" maxlength="12" placeholder="—" value="${escHtml(t.categorie||'')}" style="background:${catBg}" draggable="false"
         onfocus="this.closest('.pl-row').draggable=false" onblur="this.closest('.pl-row').draggable=true"
@@ -2099,12 +2231,14 @@ function buildPlaylistRow(t){
   return rowHtml + detailHtml;
 }
 function playlistTableHeader(){
-  const labels = ['','Artiste','Titre','Catégorie','Anc. Cat.','Quota','TV','Radio',"Date d'Entrée",'Label',''];
+  const labels = ['','Artiste','Titre','','Catégorie','Anc. Cat.','Quota','TV','Radio',"Date d'Entrée",'Label',''];
   const cells = labels.map(l=>`<div>${l}</div>`).join('');
   return `<div class="pl-header-row" style="grid-template-columns:${PLAYLIST_ROW_GRID}">${cells}</div>`;
 }
 function renderPlaylistPage(){
   updatePlaylistBadge();
+  refreshPlaylistSuggestions();
+  updatePlaylistAlignAllBtn();
   updatePlaylistValidityUI();
   renderWeekBanner('weekBannerPlaylist', tvParsed && tvParsed.period);
   const listEl = document.getElementById('playlistList');
