@@ -88,6 +88,8 @@ table.smtv td.dim{color:var(--muted)}
 .title-cell .a{color:var(--text2);font-size:11.5px}
 .clip-badge{display:inline-flex;vertical-align:2px;margin-left:6px;opacity:.9}
 .clip-badge:hover{opacity:1}
+.pl-cat-tag{display:inline-block;vertical-align:1px;margin-left:6px;padding:1px 5px;border-radius:4px;font-size:9px;font-weight:800;line-height:1.35;letter-spacing:.02em;color:#1e2838;opacity:.85;white-space:nowrap;cursor:help}
+.pl-cat-tag:hover{opacity:1}
 .evo-up{color:var(--green-text);font-weight:800}
 .evo-down{color:#C0392B;font-weight:800}
 .evo-flat{color:var(--muted)}
@@ -1046,7 +1048,7 @@ function renderTable(){
     tbody += `<tr>
       <td class="rank-cell">${r.rg!=null?r.rg:'–'}</td>
       <td>${evoHtml}</td>
-      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(r.title)}</div><div class="a">${escHtml(r.artist)}</div></td>`;
+      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(r.title)}${playlistCatBadge(r.artist,r.title)}</div><div class="a">${escHtml(r.artist)}</div></td>`;
     channels.forEach(c=>{
       const v=r.channels[c];
       const own=isOwnChannel(c);
@@ -1862,6 +1864,7 @@ function togglePlaylistTitle(artist, title){
   if(document.getElementById('pagePlaylist').style.display!=='none') renderPlaylistPage();
   else if(document.getElementById('tableCard').style.display!=='none') renderTable();
   else if(document.getElementById('pageRadio').style.display!=='none') renderRadioTable();
+  else if(document.getElementById('pageProg').style.display!=='none') renderProgPage();
 }
 // Petit bouton +/✓ inline pour ajouter/retirer un titre de la Playlist
 // directement depuis une ligne de classement (TV ou Radio), sans passer
@@ -1871,6 +1874,33 @@ function plMiniButton(artist, title){
   const a = escHtml(artist).replace(/'/g,"\\'");
   const t = escHtml(title).replace(/'/g,"\\'");
   return `<button class="pl-mini-btn ${inP?'active':''}" onclick="event.stopPropagation();togglePlaylistTitle('${a}','${t}')" title="${inP?'Retirer de la Playlist':'Ajouter à la Playlist'}">${inP?'✓':'+'}</button>`;
+}
+// Badge discret de catégorie Playlist, affiché à côté du titre dans les
+// classements (TV, Radio, Exclusivités, YouTube FR, Programmation). Même
+// correspondance que le reste de l'appli (clé artiste|||titre) avec un repli
+// tolérant pour les sources externes (YouTube…) où l'artiste est souvent
+// formulé autrement (featurings, « & »…).
+function playlistEntryFor(artist, title){
+  if(!playlistTitles.length) return null;
+  const key = matchKey(artist, title);
+  const exact = playlistTitles.find(t => t.key === key);
+  if(exact) return exact;
+  const nt = normTxt(title), na = normTxt(artist);
+  if(!nt) return null;
+  return playlistTitles.find(t => {
+    const pt = normTxt(t.title), pa = normTxt(t.artist);
+    if(pt !== nt && similarity(nt, pt) < 0.85) return false;
+    return pa === na || similarity(na, pa) >= 0.5 || (na && pa && (na.includes(pa) || pa.includes(na)));
+  }) || null;
+}
+function playlistCatBadge(artist, title){
+  const t = playlistEntryFor(artist, title);
+  if(!t) return '';
+  const cat = (t.categorie || '').toUpperCase().trim();
+  if(!cat) return '';
+  const c = categoryColor(cat);
+  const tip = 'Playlist — catégorie ' + cat + (t.ancienneCategorie ? ' (avant : ' + t.ancienneCategorie + ')' : '');
+  return `<span class="pl-cat-tag" style="background:rgb(${c.join(',')})" title="${escHtml(tip)}">${escHtml(cat)}</span>`;
 }
 function refreshPlaylistModalButton(artist, title){
   const btn = document.getElementById('tevPlaylistBtn');
@@ -2979,7 +3009,7 @@ function renderProgTable(){
     tbody += `<tr>
       <td class="rank-cell">${r.rang}</td>
       <td>${progEvoHtml(r)}</td>
-      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(r.title)}</div><div class="a">${escHtml(r.artist)}</div></td>
+      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(r.title)}${playlistCatBadge(r.artist,r.title)}</div><div class="a">${escHtml(r.artist)}</div></td>
       <td style="font-size:11px;color:var(--text2)">${escHtml(r.genre)||'<span class="dim">–</span>'}</td>
       <td style="font-size:11px;color:var(--text2)">${escHtml(r.label)||'<span class="dim">–</span>'}</td>
       <td class="own" style="font-weight:800">${r.nbDiffs}</td>
@@ -3144,6 +3174,7 @@ function switchPage(page){
   document.getElementById('navBtnYt').classList.toggle('active', page==='yt');
   document.getElementById('navBtnPlaylist').classList.toggle('active', page==='playlist');
   document.getElementById('navBtnProg').classList.toggle('active', page==='prog');
+  if(page==='rank') renderTable();
   if(page==='radio') renderRadioTable();
   if(page==='excl') renderExclusivePage();
   if(page==='yt') renderYoutubePage();
@@ -3235,7 +3266,7 @@ function renderRadioTable(){
     tbody += `<tr>
       <td class="rank-cell">${r.rg!=null?r.rg:'–'}</td>
       <td>${evoHtml}</td>
-      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(r.title)}${clipBadge(r.artist,r.title)}</div><div class="a">${escHtml(r.artist)}</div></td>`;
+      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(r.title)}${clipBadge(r.artist,r.title)}${playlistCatBadge(r.artist,r.title)}</div><div class="a">${escHtml(r.artist)}</div></td>`;
     stations.forEach(c=>{
       const v=r.channels[c];
       const own=isOwnChannel(c);
@@ -3304,7 +3335,7 @@ function renderExclusivePage(){
       html += `<div class="ec-empty">Tous les titres du Top 100 YouTube sont aussi diffusés en TV cette semaine.</div>`;
     } else {
       html += renderExclItemsBlock(ytExclusives, e => `<div class="ec-item tev-click" data-evotitle="${evoAttr(e.t, e.a)}" onclick="openTitleEvolutionModal(this)">
-          <span><span class="et">${escHtml(e.t)}</span><span class="ea">${escHtml(e.a)}</span></span>
+          <span><span class="et">${escHtml(e.t)}</span>${playlistCatBadge(e.a,e.t)}<span class="ea">${escHtml(e.a)}</span></span>
           <span class="ev">#${e.rank}</span>
         </div>`);
     }
@@ -3339,7 +3370,7 @@ function renderExclusivePage(){
       html += renderExclItemsBlock(exclusives, r => {
         const ytR = findYoutubeFrRank(r.artist, r.title);
         return `<div class="ec-item tev-click" data-evotitle="${evoAttr(r.title, r.artist)}" onclick="openTitleEvolutionModal(this)">
-          <span><span class="et">${escHtml(r.title)}</span><span class="ea">${escHtml(r.artist)}</span></span>
+          <span><span class="et">${escHtml(r.title)}</span>${playlistCatBadge(r.artist,r.title)}<span class="ea">${escHtml(r.artist)}</span></span>
           <span style="display:flex;align-items:center;gap:8px">
             ${ytR!=null?('<span class="ec-yt" title="Classement YouTube France">'+logoImg(LOGO_YOUTUBE,'YouTube',11)+' #'+ytR+'</span>'):''}
             <span class="ev">${r.channels[c]}</span>
@@ -3368,7 +3399,7 @@ function renderYoutubePage(){
   entries.forEach(e=>{
     html += `<tr>
       <td class="rank-cell">#${e.rank}</td>
-      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(e.t, e.a)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(e.t)}</div><div class="a">${escHtml(e.a)}</div></td>
+      <td class="col-title title-cell tev-click" data-evotitle="${evoAttr(e.t, e.a)}" onclick="openTitleEvolutionModal(this)"><div class="t">${escHtml(e.t)}${playlistCatBadge(e.a,e.t)}</div><div class="a">${escHtml(e.a)}</div></td>
       <td>${e.streams!=null ? e.streams.toLocaleString('fr-FR') : '<span class="dim">–</span>'}</td>
     </tr>`;
   });
